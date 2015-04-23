@@ -41,7 +41,7 @@ public class visao extends javax.swing.JFrame {
 
         Vector<Vector> dados = new Vector<Vector>();
 
-        String comando = "select * from producao";
+        String comando = "select * from producao"
 
         try {
             java.sql.Statement stmt = con.createStatement();
