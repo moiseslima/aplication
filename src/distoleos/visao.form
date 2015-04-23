@@ -240,7 +240,7 @@
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel7PrecodeVenda1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jFormattedTextField1" max="32767" attributes="0"/>
+                                          <Component id="TextFieldResultadoMaterial" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel7PrecodeVenda" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -386,7 +386,7 @@
                                           </Group>
                                       </Group>
                                       <Component id="TextFieldResultadoPrecoVenda" min="-2" pref="90" max="-2" attributes="0"/>
-                                      <Component id="jFormattedTextField1" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="TextFieldResultadoMaterial" min="-2" pref="90" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
@@ -795,9 +795,9 @@
                     <Property name="text" type="java.lang.String" value="Digite aqui a descri&#xe7;&#xe3;o do Produto/material:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+                <Component class="javax.swing.JFormattedTextField" name="TextFieldResultadoMaterial">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFormattedTextField1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldResultadoMaterialActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7PrecodeVenda1">

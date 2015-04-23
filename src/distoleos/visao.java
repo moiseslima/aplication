@@ -21,12 +21,39 @@ public class visao extends javax.swing.JFrame {
      */
     public visao() {
         initComponents();
+         TextFieldMaterial.grabFocus(); //focar ao iniciar o programa
+        if (TextFieldMaterial.getText().isEmpty()) {
+            TextFieldMaterial.setText("0");
+        }
+        if (TextFieldImpostoFederal.getText().isEmpty()) {
+            TextFieldImpostoFederal.setText("0");
+        }
+        if (TextFieldImpostoEstadual.getText().isEmpty()) {
+            TextFieldImpostoFederal.setText("0");
+        }
+        if (TextFieldIPI.getText().isEmpty()) {
+            TextFieldIPI.setText("0");
+        }
+        if (TextFieldICMS.getText().isEmpty()) {
+            TextFieldICMS.setText("0");
+        }
+        
+        if (TextFieldFrete.getText().isEmpty()) {
+            TextFieldFrete.setText("0");
+        }
+        if (TextFieldGanhoLivre.getText().isEmpty()) {
+            TextFieldGanhoLivre.setText("0");
+        }
+        if (TextFieldCustosGerais.getText().isEmpty()) {
+            TextFieldCustosGerais.setText("0");
+        }
+        
 
         this.carregarTabela();
     }
-
 //Classe Adicionar
     public void carregarTabela() {
+        jTable1.repaint();
         //fazer a conexao com o mysql
         java.sql.Connection con;
         try {
@@ -41,7 +68,7 @@ public class visao extends javax.swing.JFrame {
 
         Vector<Vector> dados = new Vector<Vector>();
 
-        String comando = "select * from producao"
+        String comando = "select * from producao";
 
         try {
             java.sql.Statement stmt = con.createStatement();
@@ -95,7 +122,7 @@ public class visao extends javax.swing.JFrame {
         for (int i = 0; i < dados.size(); i++) {
             dtm.addRow(dados.get(i));
         }
-
+      
     }
 
     //Fim da classe adicionar
@@ -166,7 +193,7 @@ public class visao extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         TextFieldResultadoPrecoProduto = new javax.swing.JFormattedTextField();
         jLabel1PrecoUnitario1 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        TextFieldResultadoMaterial = new javax.swing.JFormattedTextField();
         jLabel7PrecodeVenda1 = new javax.swing.JLabel();
         jButtonGravar = new javax.swing.JButton();
         TextFieldMaterial = new javax.swing.JFormattedTextField();
@@ -349,9 +376,9 @@ public class visao extends javax.swing.JFrame {
         jLabel1PrecoUnitario1.setForeground(new java.awt.Color(0, 204, 0));
         jLabel1PrecoUnitario1.setText("Digite aqui a descrição do Produto/material:");
 
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+        TextFieldResultadoMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
+                TextFieldResultadoMaterialActionPerformed(evt);
             }
         });
 
@@ -504,7 +531,7 @@ public class visao extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7PrecodeVenda1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jFormattedTextField1)
+                                .addComponent(TextFieldResultadoMaterial)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7PrecodeVenda)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -620,7 +647,7 @@ public class visao extends javax.swing.JFrame {
                                     .addComponent(jLabel7PrecodeVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7PrecodeVenda1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(TextFieldResultadoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TextFieldResultadoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(31, 31, 31))))
         );
 
@@ -710,21 +737,29 @@ public class visao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparCamposActionPerformed
-        /*jTextField3PrecoUnitario.setText("");
-         jTextField4ImpostoFederal.setText("");
-         jTextField5ImpostoEstadual.setText("");
-         jTextField6Frete.setText("");
-         jTextField7CustosGerais.setText("");
-         jTextField8GanhoLivre.setText("");
-         jTextField9RseultadoImpostoFederal.setText("");
-         jTextField10ResultadoFrete.setText("");
-         jTextField11ResultadoImpostoEstadual.setText("");
-         jTextField12ResultadoCustosGerais.setText("");
-         jTextField13ResultadoGanhoLivre.setText("");
-         jTextField14ResultadoPrecoVenda.setText(""); //limpa o resultado também
-
-         jTextField3PrecoUnitario.grabFocus(); //foca o campo preco unitario
-         */
+       TextFieldMaterial.setText("");
+        TextFieldPrecoUnitario.setText("");
+         TextFieldImpostoFederal.setText("");
+         TextFieldImpostoFederal.setText("");
+         TextFieldIPI.setText("");
+         TextFieldICMS.setText("");
+         TextFieldFrete.setText("");
+         TextFieldCustosGerais.setText("");
+         TextFieldGanhoLivre.setText("");         
+         
+         TextFieldResultadoMaterial.setText("");
+         TextFieldResultadoIF.setText("");
+         TextFieldResultadoIE.setText("");
+         TextFieldResultadoIPI.setText("");
+         TextFieldResultadoICMS.setText("");
+         TextFieldResultadoFrete.setText("");
+         TextFieldResultadoCustosGerais.setText("");
+         TextFieldResultadoGanhoLivre.setText("");
+         TextFieldResultadoPrecoVenda.setText("");
+         TextFieldResultadoPrecoProduto.setText("");
+         
+         TextFieldMaterial.grabFocus(); //foca o campo preco unitario
+         
     }//GEN-LAST:event_jButtonLimparCamposActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -751,9 +786,9 @@ public class visao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+    private void TextFieldResultadoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldResultadoMaterialActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+    }//GEN-LAST:event_TextFieldResultadoMaterialActionPerformed
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
         //fazer a conexao com o mysql
@@ -766,7 +801,7 @@ public class visao extends javax.swing.JFrame {
             e.printStackTrace();
             throw new java.lang.RuntimeException("erro ao conectar");
         }
-
+        
         String Descricao = this.TextFieldMaterial.getText();
         String Preco = this.TextFieldPrecoUnitario.getText();
         String IPI = this.TextFieldResultadoIPI.getText();
@@ -775,11 +810,11 @@ public class visao extends javax.swing.JFrame {
         String GanhoLivre = this.TextFieldResultadoGanhoLivre.getText();
         String CustosGerais = this.TextFieldResultadoCustosGerais.getText();
         String PrecoVenda = this.TextFieldResultadoPrecoVenda.getText();
-        String ImpostoFederal = this.TextFieldImpostoFederal.getText();
-        String ImpostoEstadual = this.TextFieldImpostoEstadual.getText();
-        String comando = "insert into producao (Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda) "
-                + "values " + "(" + Descricao + "','" + Preco + "','" + ImpostoFederal + "','" + ImpostoEstadual + "', '" + IPI + "', '" + ICMS + "', '" + Frete + "', '" + GanhoLivre + "', '" + CustosGerais + "', '" + PrecoVenda + "')";
-
+        String ImpostoFederal = this.TextFieldResultadoIF.getText();
+        String ImpostoEstadual = this.TextFieldResultadoIE.getText();
+        String comando = "insert into producao ( Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda) "
+                + "values " + "('" + Descricao + "','" + Preco + "','" + ImpostoFederal + "','" + ImpostoEstadual + "', '" + IPI + "', '" + ICMS + "', '" + Frete + "', '" + GanhoLivre + "', '" + CustosGerais + "', '" + PrecoVenda + "')";
+        
         try {
             java.sql.Statement stmt = con.createStatement();
             stmt.executeUpdate(comando);
@@ -789,7 +824,7 @@ public class visao extends javax.swing.JFrame {
             throw new java.lang.RuntimeException(e.getMessage());
         }
 
-      
+      this.carregarTabela();
 
 //Fechando a Conexão:
         try {
@@ -798,6 +833,8 @@ public class visao extends javax.swing.JFrame {
             e.printStackTrace();
             throw new java.lang.RuntimeException("erro fechar");
         }
+        
+        
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
@@ -808,7 +845,7 @@ public class visao extends javax.swing.JFrame {
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         int linhaSelecionada = this.jTable1.getSelectedRow();
         // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda)    
-        int codigo = (int) this.jTable1.getValueAt(linhaSelecionada, 0);
+        
         String Descricao = this.jTable1.getValueAt(linhaSelecionada, 1).toString();
         String Preco = this.jTable1.getValueAt(linhaSelecionada, 2).toString();
         String ImpostoFederal = this.jTable1.getValueAt(linhaSelecionada, 3).toString();
@@ -819,8 +856,10 @@ public class visao extends javax.swing.JFrame {
         String GanhoLivre = this.jTable1.getValueAt(linhaSelecionada, 8).toString();
         String CustosGerais = this.jTable1.getValueAt(linhaSelecionada, 9).toString();
         String PrecoVenda = this.jTable1.getValueAt(linhaSelecionada, 10).toString();
-
-        new AlterarTabela(Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda).setVisible(true);
+        String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
+        new AlterarTabela(Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda, codigo).setVisible(true);
+        
+        
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
     /**
@@ -875,12 +914,12 @@ public class visao extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField TextFieldResultadoIE;
     private javax.swing.JFormattedTextField TextFieldResultadoIF;
     private javax.swing.JFormattedTextField TextFieldResultadoIPI;
+    private javax.swing.JFormattedTextField TextFieldResultadoMaterial;
     private javax.swing.JFormattedTextField TextFieldResultadoPrecoProduto;
     private javax.swing.JFormattedTextField TextFieldResultadoPrecoVenda;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonLimparCampos;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
