@@ -1213,6 +1213,29 @@ public class visao extends javax.swing.JFrame {
         TextFieldImpostoFederal.transferFocus();
     }//GEN-LAST:event_TextFieldImpostoFederalActionPerformed
 
+        private void botaoCriarCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarCopiaActionPerformed
+        /*java.sql.Connection con;
+        try {
+            Class.forName("org.gjt.mm.mysql.Driver");
+            con = java.sql.DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/armazenamento", "root", "Moises@125");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new java.lang.RuntimeException("erro ao conectar");
+        }
+        String cmd = "select * from UltimoBackup";
+        
+        try {
+            java.sql.Statement stmt = con.createStatement();
+            java.sql.ResultSet rs = stmt.executeQuery(cmd);
+        }*/
+        new BackupRestauracao().fazerBackup();
+    }//GEN-LAST:event_botaoCriarCopiaActionPerformed
+
+    private void botaoRestaurarCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRestaurarCopiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoRestaurarCopiaActionPerformed
+
     private void TextFieldICMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldICMSActionPerformed
       
     
@@ -1267,6 +1290,7 @@ public class visao extends javax.swing.JFrame {
         TextFieldICMS.transferFocus();
     
     
+        
     }//GEN-LAST:event_TextFieldICMSActionPerformed
 
     /**
