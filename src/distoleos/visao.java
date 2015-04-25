@@ -18,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class visao extends javax.swing.JFrame {
 
+    double num70, Material, PorcentagemMaterial, PrecoUnitario, PorcentagemPrecoUnitario, ImpostoFederal, PorcentagemImpostoFederal, ImpostoEstadual, PorcentagemImpostoEstadual, IPI, PorcentagemIPI, ICMS, PorcentagemICMS, GanhoLivre, PorcentagemGanhoLivre, CustosGerais, Frete, PrecoVenda;
+
     private Object jTextField3PrecoUnitario;
 
     /**
@@ -25,15 +27,18 @@ public class visao extends javax.swing.JFrame {
      */
     public visao() {
         initComponents();
-         TextFieldMaterial.grabFocus(); //focar ao iniciar o programa
+        TextFieldMaterial.grabFocus(); //focar ao iniciar o programa
         if (TextFieldMaterial.getText().isEmpty()) {
             TextFieldMaterial.setText("0");
+        }
+        if (TextFieldPrecoUnitario.getText().isEmpty()) {
+            TextFieldPrecoUnitario.setText("0");
         }
         if (TextFieldImpostoFederal.getText().isEmpty()) {
             TextFieldImpostoFederal.setText("0");
         }
         if (TextFieldImpostoEstadual.getText().isEmpty()) {
-            TextFieldImpostoFederal.setText("0");
+            TextFieldImpostoEstadual.setText("0");
         }
         if (TextFieldIPI.getText().isEmpty()) {
             TextFieldIPI.setText("0");
@@ -41,7 +46,7 @@ public class visao extends javax.swing.JFrame {
         if (TextFieldICMS.getText().isEmpty()) {
             TextFieldICMS.setText("0");
         }
-        
+
         if (TextFieldFrete.getText().isEmpty()) {
             TextFieldFrete.setText("0");
         }
@@ -51,13 +56,13 @@ public class visao extends javax.swing.JFrame {
         if (TextFieldCustosGerais.getText().isEmpty()) {
             TextFieldCustosGerais.setText("0");
         }
-        
 
         this.carregarTabela();
     }
 //Classe Adicionar
+
     public void carregarTabela() {
-        jTable1.repaint();
+      
         //fazer a conexao com o mysql
         java.sql.Connection con;
         try {
@@ -126,7 +131,7 @@ public class visao extends javax.swing.JFrame {
         for (int i = 0; i < dados.size(); i++) {
             dtm.addRow(dados.get(i));
         }
-      
+
     }
 
     //Fim da classe adicionar
@@ -153,7 +158,6 @@ public class visao extends javax.swing.JFrame {
         TextFieldImpostoFederal = new javax.swing.JFormattedTextField();
         TextFieldImpostoEstadual = new javax.swing.JFormattedTextField();
         TextFieldIPI = new javax.swing.JFormattedTextField();
-        TextFieldICMS = new javax.swing.JFormattedTextField();
         TextFieldFrete = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -201,6 +205,7 @@ public class visao extends javax.swing.JFrame {
         jLabel7PrecodeVenda1 = new javax.swing.JLabel();
         jButtonGravar = new javax.swing.JButton();
         TextFieldMaterial = new javax.swing.JFormattedTextField();
+        TextFieldICMS = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -254,6 +259,11 @@ public class visao extends javax.swing.JFrame {
         });
 
         TextFieldImpostoFederal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        TextFieldImpostoFederal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldImpostoFederalActionPerformed(evt);
+            }
+        });
 
         TextFieldImpostoEstadual.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         TextFieldImpostoEstadual.addActionListener(new java.awt.event.ActionListener() {
@@ -400,6 +410,29 @@ public class visao extends javax.swing.JFrame {
             }
         });
 
+        TextFieldMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TextFieldMaterialMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TextFieldMaterialMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TextFieldMaterialMouseExited(evt);
+            }
+        });
+        TextFieldMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldMaterialActionPerformed(evt);
+            }
+        });
+
+        TextFieldICMS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldICMSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -412,12 +445,6 @@ public class visao extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(54, 54, 54)
-                                .addComponent(TextFieldICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel5)
@@ -432,20 +459,6 @@ public class visao extends javax.swing.JFrame {
                                         .addComponent(TextFieldFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel13))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2))
-                                .addGap(54, 54, 54)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(TextFieldImpostoEstadual)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel7))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(TextFieldIPI, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel8))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1PrecoUnitario1)
@@ -475,7 +488,27 @@ public class visao extends javax.swing.JFrame {
                                         .addGap(89, 89, 89)
                                         .addComponent(TextFieldCustosGerais, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel15)))
+                                .addComponent(jLabel15))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2))
+                                    .addComponent(jLabel4))
+                                .addGap(54, 54, 54)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(TextFieldICMS)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel12))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(TextFieldImpostoEstadual)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel7))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(TextFieldIPI, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel8)))))
                         .addGap(55, 55, 55)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -578,8 +611,8 @@ public class visao extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TextFieldICMS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
+                            .addComponent(jLabel12)
+                            .addComponent(TextFieldICMS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -770,29 +803,29 @@ public class visao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparCamposActionPerformed
-       TextFieldMaterial.setText("");
+        TextFieldMaterial.setText("");
         TextFieldPrecoUnitario.setText("");
-         TextFieldImpostoFederal.setText("");
-         TextFieldImpostoFederal.setText("");
-         TextFieldIPI.setText("");
-         TextFieldICMS.setText("");
-         TextFieldFrete.setText("");
-         TextFieldCustosGerais.setText("");
-         TextFieldGanhoLivre.setText("");         
-         
-         TextFieldResultadoMaterial.setText("");
-         TextFieldResultadoIF.setText("");
-         TextFieldResultadoIE.setText("");
-         TextFieldResultadoIPI.setText("");
-         TextFieldResultadoICMS.setText("");
-         TextFieldResultadoFrete.setText("");
-         TextFieldResultadoCustosGerais.setText("");
-         TextFieldResultadoGanhoLivre.setText("");
-         TextFieldResultadoPrecoVenda.setText("");
-         TextFieldResultadoPrecoProduto.setText("");
-         
-         TextFieldMaterial.grabFocus(); //foca o campo preco unitario
-         
+        TextFieldImpostoFederal.setText("");
+        TextFieldImpostoEstadual.setText("");
+        TextFieldIPI.setText("");
+        TextFieldICMS.setText("");
+        TextFieldFrete.setText("");
+        TextFieldCustosGerais.setText("");
+        TextFieldGanhoLivre.setText("");
+
+        TextFieldResultadoMaterial.setText("");
+        TextFieldResultadoIF.setText("");
+        TextFieldResultadoIE.setText("");
+        TextFieldResultadoIPI.setText("");
+        TextFieldResultadoICMS.setText("");
+        TextFieldResultadoFrete.setText("");
+        TextFieldResultadoCustosGerais.setText("");
+        TextFieldResultadoGanhoLivre.setText("");
+        TextFieldResultadoPrecoVenda.setText("");
+        TextFieldResultadoPrecoProduto.setText("");
+
+        TextFieldMaterial.grabFocus(); //foca o campo preco unitario
+
     }//GEN-LAST:event_jButtonLimparCamposActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -800,19 +833,192 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void TextFieldPrecoUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPrecoUnitarioActionPerformed
-        // TODO add your handling code here:
+
+        if (TextFieldMaterial.getText().isEmpty()) {
+            TextFieldMaterial.setText("0");
+        }
+        if (TextFieldPrecoUnitario.getText().isEmpty()) {
+            TextFieldPrecoUnitario.setText("0");
+        }
+        if (TextFieldImpostoFederal.getText().isEmpty()) {
+            TextFieldImpostoFederal.setText("0");
+        }
+        if (TextFieldImpostoEstadual.getText().isEmpty()) {
+            TextFieldImpostoEstadual.setText("0");
+        }
+        if (TextFieldIPI.getText().isEmpty()) {
+            TextFieldIPI.setText("0");
+        }
+        if (TextFieldICMS.getText().isEmpty()) {
+            TextFieldICMS.setText("0");
+        }
+
+        if (TextFieldFrete.getText().isEmpty()) {
+            TextFieldFrete.setText("0");
+        }
+        if (TextFieldGanhoLivre.getText().isEmpty()) {
+            TextFieldGanhoLivre.setText("0");
+        }
+        if (TextFieldCustosGerais.getText().isEmpty()) {
+            TextFieldCustosGerais.setText("0");
+        }
+
+        PrecoUnitario = Double.parseDouble(TextFieldPrecoUnitario.getText());
+        TextFieldPrecoUnitario.setText(String.valueOf(PrecoUnitario));
+
+        TextFieldResultadoPrecoVenda.setText("");
+
+        TextFieldResultadoPrecoVenda.setText(String.valueOf(PrecoUnitario));
+        TextFieldPrecoUnitario.transferFocus(); //ao apertar enter, vai pro proximo campo
+
     }//GEN-LAST:event_TextFieldPrecoUnitarioActionPerformed
 
+    // num1 = PrecoUnitario, num2 = ImpostoEstadual, num3 = IPI, num4 = Frete, num5= GanhoLivre, num6 = ImpostoFederal;
     private void TextFieldImpostoEstadualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldImpostoEstadualActionPerformed
-        // TODO add your handling code here:
+        if (TextFieldMaterial.getText().isEmpty()) {
+            TextFieldMaterial.setText("0");
+        }
+        if (TextFieldPrecoUnitario.getText().isEmpty()) {
+            TextFieldPrecoUnitario.setText("0");
+        }
+        if (TextFieldImpostoFederal.getText().isEmpty()) {
+            TextFieldImpostoFederal.setText("0");
+        }
+        if (TextFieldImpostoEstadual.getText().isEmpty()) {
+            TextFieldImpostoEstadual.setText("0");
+        }
+        if (TextFieldIPI.getText().isEmpty()) {
+            TextFieldIPI.setText("0");
+        }
+        if (TextFieldICMS.getText().isEmpty()) {
+            TextFieldICMS.setText("0");
+        }
+
+        if (TextFieldFrete.getText().isEmpty()) {
+            TextFieldFrete.setText("0");
+        }
+        if (TextFieldGanhoLivre.getText().isEmpty()) {
+            TextFieldGanhoLivre.setText("0");
+        }
+        if (TextFieldCustosGerais.getText().isEmpty()) {
+            TextFieldCustosGerais.setText("0");
+        }
+
+        ImpostoEstadual = Double.parseDouble(TextFieldImpostoEstadual.getText());
+
+        TextFieldImpostoEstadual.setText(String.valueOf(ImpostoEstadual));
+
+        double num7 = (ImpostoEstadual / 100) * PrecoUnitario;
+        TextFieldResultadoIE.setText(String.valueOf(num7));
+        // We have to parse the text to a type Double.
+
+        TextFieldResultadoPrecoVenda.setText("");
+
+        double num12 = PrecoUnitario + num7;
+        TextFieldResultadoPrecoVenda.setText(String.valueOf(num12));
+        TextFieldImpostoEstadual.transferFocus(); //apertando enter, transfere foco p/proximo campo
     }//GEN-LAST:event_TextFieldImpostoEstadualActionPerformed
 
     private void TextFieldIPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldIPIActionPerformed
-        // TODO add your handling code here:
+        if (TextFieldMaterial.getText().isEmpty()) {
+            TextFieldMaterial.setText("0");
+        }
+        if (TextFieldPrecoUnitario.getText().isEmpty()) {
+            TextFieldPrecoUnitario.setText("0");
+        }
+        if (TextFieldImpostoFederal.getText().isEmpty()) {
+            TextFieldImpostoFederal.setText("0");
+        }
+        if (TextFieldImpostoEstadual.getText().isEmpty()) {
+            TextFieldImpostoEstadual.setText("0");
+        }
+        if (TextFieldIPI.getText().isEmpty()) {
+            TextFieldIPI.setText("0");
+        }
+        if (TextFieldICMS.getText().isEmpty()) {
+            TextFieldICMS.setText("0");
+        }
+
+        if (TextFieldFrete.getText().isEmpty()) {
+            TextFieldFrete.setText("0");
+        }
+        if (TextFieldGanhoLivre.getText().isEmpty()) {
+            TextFieldGanhoLivre.setText("0");
+        }
+        if (TextFieldCustosGerais.getText().isEmpty()) {
+            TextFieldCustosGerais.setText("0");
+        }
+
+        IPI = Double.parseDouble(TextFieldIPI.getText());
+
+        TextFieldIPI.setText(String.valueOf(IPI));
+
+        double num20 = (ImpostoEstadual / 100) * PrecoUnitario;
+        double num21 = PrecoUnitario + num20;
+
+        double num8 = PrecoUnitario * (IPI / 100);
+
+        num8 = (PrecoUnitario * (IPI / 100));
+
+        TextFieldResultadoIPI.setText(String.valueOf(num8));
+
+        TextFieldResultadoPrecoVenda.setText("");
+
+        double num13 = num21 + num8;
+        TextFieldResultadoPrecoVenda.setText(String.valueOf(num13));
+        TextFieldIPI.transferFocus();
+
     }//GEN-LAST:event_TextFieldIPIActionPerformed
 
     private void TextFieldFreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldFreteActionPerformed
-        // TODO add your handling code here:
+        if (TextFieldMaterial.getText().isEmpty()) {
+            TextFieldMaterial.setText("0");
+        }
+        if (TextFieldPrecoUnitario.getText().isEmpty()) {
+            TextFieldPrecoUnitario.setText("0");
+        }
+        if (TextFieldImpostoFederal.getText().isEmpty()) {
+            TextFieldImpostoFederal.setText("0");
+        }
+        if (TextFieldImpostoEstadual.getText().isEmpty()) {
+            TextFieldImpostoEstadual.setText("0");
+        }
+        if (TextFieldIPI.getText().isEmpty()) {
+            TextFieldIPI.setText("0");
+        }
+        if (TextFieldICMS.getText().isEmpty()) {
+            TextFieldICMS.setText("0");
+        }
+
+        if (TextFieldFrete.getText().isEmpty()) {
+            TextFieldFrete.setText("0");
+        }
+        if (TextFieldGanhoLivre.getText().isEmpty()) {
+            TextFieldGanhoLivre.setText("0");
+        }
+        if (TextFieldCustosGerais.getText().isEmpty()) {
+            TextFieldCustosGerais.setText("0");
+        }
+
+        Frete = Double.parseDouble(TextFieldFrete.getText());
+
+        TextFieldFrete.setText(String.valueOf(Frete));
+
+        double num28 = PrecoUnitario * (ImpostoEstadual / 100);
+        double num22 = PrecoUnitario * (IPI / 100);
+        double num23 = PrecoUnitario + num22 + num28;
+
+        double num9 = PrecoUnitario * (Frete / 100);
+
+        num9 = (PrecoUnitario * (Frete / 100));
+
+        TextFieldResultadoFrete.setText(String.valueOf(num9));
+
+        TextFieldResultadoPrecoVenda.setText("");
+
+        double num14 = num23 + num9;
+        TextFieldResultadoPrecoVenda.setText(String.valueOf(num14));
+        TextFieldFrete.transferFocus();
     }//GEN-LAST:event_TextFieldFreteActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -834,7 +1040,7 @@ public class visao extends javax.swing.JFrame {
             e.printStackTrace();
             throw new java.lang.RuntimeException("erro ao conectar");
         }
-        
+
         String Descricao = this.TextFieldMaterial.getText();
         String Preco = this.TextFieldPrecoUnitario.getText();
         String IPI = this.TextFieldResultadoIPI.getText();
@@ -847,7 +1053,7 @@ public class visao extends javax.swing.JFrame {
         String ImpostoEstadual = this.TextFieldResultadoIE.getText();
         String comando = "insert into producao ( Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda) "
                 + "values " + "('" + Descricao + "','" + Preco + "','" + ImpostoFederal + "','" + ImpostoEstadual + "', '" + IPI + "', '" + ICMS + "', '" + Frete + "', '" + GanhoLivre + "', '" + CustosGerais + "', '" + PrecoVenda + "')";
-        
+
         try {
             java.sql.Statement stmt = con.createStatement();
             stmt.executeUpdate(comando);
@@ -857,7 +1063,7 @@ public class visao extends javax.swing.JFrame {
             throw new java.lang.RuntimeException(e.getMessage());
         }
 
-      this.carregarTabela();
+        this.carregarTabela();
 
 //Fechando a Conexão:
         try {
@@ -866,19 +1072,64 @@ public class visao extends javax.swing.JFrame {
             e.printStackTrace();
             throw new java.lang.RuntimeException("erro fechar");
         }
-        
-        
+
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
     private void TextFieldGanhoLivreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldGanhoLivreActionPerformed
-        // TODO add your handling code here:
+        if (TextFieldMaterial.getText().isEmpty()) {
+            TextFieldMaterial.setText("0");
+        }
+        if (TextFieldPrecoUnitario.getText().isEmpty()) {
+            TextFieldPrecoUnitario.setText("0");
+        }
+        if (TextFieldImpostoFederal.getText().isEmpty()) {
+            TextFieldImpostoFederal.setText("0");
+        }
+        if (TextFieldImpostoEstadual.getText().isEmpty()) {
+            TextFieldImpostoEstadual.setText("0");
+        }
+        if (TextFieldIPI.getText().isEmpty()) {
+            TextFieldIPI.setText("0");
+        }
+        if (TextFieldICMS.getText().isEmpty()) {
+            TextFieldICMS.setText("0");
+        }
+
+        if (TextFieldFrete.getText().isEmpty()) {
+            TextFieldFrete.setText("0");
+        }
+        if (TextFieldGanhoLivre.getText().isEmpty()) {
+            TextFieldGanhoLivre.setText("0");
+        }
+        if (TextFieldCustosGerais.getText().isEmpty()) {
+            TextFieldCustosGerais.setText("0");
+        }
+
+        GanhoLivre = Double.parseDouble(TextFieldGanhoLivre.getText());
+
+        TextFieldGanhoLivre.setText(String.valueOf(GanhoLivre));
+
+        double num29 = PrecoUnitario * (ImpostoEstadual / 100);
+        double num83 = PrecoUnitario * (IPI / 100);
+        double num24 = PrecoUnitario * (Frete / 100);
+        double num25 = num29 + PrecoUnitario + num24 + num83;
+
+        double num10 = PrecoUnitario * (GanhoLivre / 100);
+
+        TextFieldResultadoGanhoLivre.setText(String.valueOf(num10));
+
+        TextFieldResultadoPrecoVenda.setText("");
+
+        double num15 = num25 + num10;
+        TextFieldResultadoPrecoVenda.setText(String.valueOf(num15));
+        TextFieldGanhoLivre.transferFocus();
     }//GEN-LAST:event_TextFieldGanhoLivreActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         int linhaSelecionada = this.jTable1.getSelectedRow();
         // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda)    
-        
+
         String Descricao = this.jTable1.getValueAt(linhaSelecionada, 1).toString();
         String Preco = this.jTable1.getValueAt(linhaSelecionada, 2).toString();
         String ImpostoFederal = this.jTable1.getValueAt(linhaSelecionada, 3).toString();
@@ -891,32 +1142,132 @@ public class visao extends javax.swing.JFrame {
         String PrecoVenda = this.jTable1.getValueAt(linhaSelecionada, 10).toString();
         String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
         new AlterarTabela(Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda, codigo).setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
-    private void botaoCriarCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarCopiaActionPerformed
-        /*java.sql.Connection con;
-        try {
-            Class.forName("org.gjt.mm.mysql.Driver");
-            con = java.sql.DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/armazenamento", "root", "Moises@125");
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro ao conectar");
-        }
-        String cmd = "select * from UltimoBackup";
-        
-        try {
-            java.sql.Statement stmt = con.createStatement();
-            java.sql.ResultSet rs = stmt.executeQuery(cmd);
-        }*/
-        new BackupRestauracao().fazerBackup();
-    }//GEN-LAST:event_botaoCriarCopiaActionPerformed
+    private void TextFieldMaterialMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldMaterialMouseEntered
 
-    private void botaoRestaurarCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRestaurarCopiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoRestaurarCopiaActionPerformed
+    }//GEN-LAST:event_TextFieldMaterialMouseEntered
+
+    private void TextFieldMaterialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldMaterialMouseExited
+
+    }//GEN-LAST:event_TextFieldMaterialMouseExited
+
+    private void TextFieldMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldMaterialMouseClicked
+
+    }//GEN-LAST:event_TextFieldMaterialMouseClicked
+
+    private void TextFieldMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldMaterialActionPerformed
+
+    }//GEN-LAST:event_TextFieldMaterialActionPerformed
+
+    private void TextFieldImpostoFederalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldImpostoFederalActionPerformed
+        if (TextFieldMaterial.getText().isEmpty()) {
+            TextFieldMaterial.setText("0");
+        }
+        if (TextFieldPrecoUnitario.getText().isEmpty()) {
+            TextFieldPrecoUnitario.setText("0");
+        }
+        if (TextFieldImpostoFederal.getText().isEmpty()) {
+            TextFieldImpostoFederal.setText("0");
+        }
+        if (TextFieldImpostoEstadual.getText().isEmpty()) {
+            TextFieldImpostoEstadual.setText("0");
+        }
+        if (TextFieldIPI.getText().isEmpty()) {
+            TextFieldIPI.setText("0");
+        }
+        if (TextFieldICMS.getText().isEmpty()) {
+            TextFieldICMS.setText("0");
+        }
+
+        if (TextFieldFrete.getText().isEmpty()) {
+            TextFieldFrete.setText("0");
+        }
+        if (TextFieldGanhoLivre.getText().isEmpty()) {
+            TextFieldGanhoLivre.setText("0");
+        }
+        if (TextFieldCustosGerais.getText().isEmpty()) {
+            TextFieldCustosGerais.setText("0");
+        }
+
+        ImpostoFederal = Double.parseDouble(TextFieldImpostoFederal.getText());
+
+        TextFieldImpostoFederal.setText(String.valueOf(ImpostoFederal));
+
+        double num31 = PrecoUnitario * (ImpostoEstadual / 100);
+        double num32 = PrecoUnitario * (IPI / 100);
+        double num33 = PrecoUnitario * (Frete / 100);
+        double num26 = PrecoUnitario * (GanhoLivre / 100);
+        double num27 = PrecoUnitario + num26 + num31 + num32 + num33;
+
+        double num11 = PrecoUnitario * (ImpostoFederal / 100);
+
+        TextFieldResultadoIF.setText(String.valueOf(num11));
+
+        TextFieldResultadoPrecoVenda.setText("");
+
+        double num16 = num27 + num11;
+        TextFieldResultadoPrecoVenda.setText(String.valueOf(num16));
+        TextFieldImpostoFederal.transferFocus();
+    }//GEN-LAST:event_TextFieldImpostoFederalActionPerformed
+
+    private void TextFieldICMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldICMSActionPerformed
+      
+    
+     if (TextFieldMaterial.getText().isEmpty()) {
+            TextFieldMaterial.setText("0");
+        }
+        if (TextFieldPrecoUnitario.getText().isEmpty()) {
+            TextFieldPrecoUnitario.setText("0");
+        }
+        if (TextFieldImpostoFederal.getText().isEmpty()) {
+            TextFieldImpostoFederal.setText("0");
+        }
+        if (TextFieldImpostoEstadual.getText().isEmpty()) {
+            TextFieldImpostoEstadual.setText("0");
+        }
+        if (TextFieldIPI.getText().isEmpty()) {
+            TextFieldIPI.setText("0");
+        }
+        if (TextFieldICMS.getText().isEmpty()) {
+            TextFieldICMS.setText("0");
+        }
+
+        if (TextFieldFrete.getText().isEmpty()) {
+            TextFieldFrete.setText("0");
+        }
+        if (TextFieldGanhoLivre.getText().isEmpty()) {
+            TextFieldGanhoLivre.setText("0");
+        }
+        if (TextFieldCustosGerais.getText().isEmpty()) {
+            TextFieldCustosGerais.setText("0");
+        }
+
+        ICMS = Double.parseDouble(TextFieldICMS.getText());
+
+        TextFieldICMS.setText(String.valueOf(ICMS));
+
+        double num40 = PrecoUnitario * (ImpostoEstadual / 100);
+        double num92 = PrecoUnitario * (IPI / 100);
+        double num93 = PrecoUnitario * (Frete / 100);
+        double num94 = PrecoUnitario * (GanhoLivre / 100);
+        double num95 = PrecoUnitario * (ImpostoFederal / 100);
+        double num90 = PrecoUnitario + num40 + num92 + num93 + num94 + num95;
+
+        double num100 = PrecoUnitario * (ICMS / 100);
+
+        TextFieldICMS.setText(String.valueOf(num100));
+
+        TextFieldResultadoPrecoVenda.setText("");
+
+        double num200 = num90 + num100;
+        TextFieldResultadoPrecoVenda.setText(String.valueOf(num200));
+        TextFieldICMS.transferFocus();
+    
+    
+    }//GEN-LAST:event_TextFieldICMSActionPerformed
 
     /**
      * @param args the command line arguments
