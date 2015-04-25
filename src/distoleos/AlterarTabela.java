@@ -15,7 +15,7 @@ public class AlterarTabela extends javax.swing.JFrame {
      * Creates new form AlterarTabela
      */
     
-    public AlterarTabela(String Descricao, String Preco, String ImpostoFederal, String ImpostoEstadual, String IPI, String ICMS, String Frete, String GanhoLivre, String CustosGerais, String PrecoVenda) {
+    public AlterarTabela(String Descricao, String Preco, String ImpostoFederal, String ImpostoEstadual, String IPI, String ICMS, String Frete, String GanhoLivre, String CustosGerais, String PrecoVenda, String codigo) {
         initComponents();
         this.codigo = codigo;
         this.jTextField1.setText(Descricao);
@@ -28,6 +28,7 @@ public class AlterarTabela extends javax.swing.JFrame {
               this.jTextField9.setText(GanhoLivre);
                this.jTextField10.setText(CustosGerais);
             this.jTextField11.setText(PrecoVenda);
+            this.codigo = codigo;
            
     }
 
