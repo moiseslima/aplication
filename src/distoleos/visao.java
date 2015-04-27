@@ -212,7 +212,6 @@ public class visao extends javax.swing.JFrame {
         jButtonAlterar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         botaoCriarCopia = new javax.swing.JButton();
-        botaoRestaurarCopia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -742,34 +741,21 @@ public class visao extends javax.swing.JFrame {
             }
         });
 
-        botaoRestaurarCopia.setBackground(new java.awt.Color(66, 107, 215));
-        botaoRestaurarCopia.setForeground(new java.awt.Color(66, 107, 215));
-        botaoRestaurarCopia.setText("RESTAURAR CÓPIA DE SEGURANÇA");
-        botaoRestaurarCopia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoRestaurarCopiaActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(338, 338, 338)
-                .addComponent(botaoRestaurarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(375, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1095, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoRestaurarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(466, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab3", jPanel4);
@@ -1214,27 +1200,8 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_TextFieldImpostoFederalActionPerformed
 
         private void botaoCriarCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarCopiaActionPerformed
-        /*java.sql.Connection con;
-        try {
-            Class.forName("org.gjt.mm.mysql.Driver");
-            con = java.sql.DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/armazenamento", "root", "Moises@125");
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro ao conectar");
-        }
-        String cmd = "select * from UltimoBackup";
-        
-        try {
-            java.sql.Statement stmt = con.createStatement();
-            java.sql.ResultSet rs = stmt.executeQuery(cmd);
-        }*/
         new BackupRestauracao().fazerBackup();
     }//GEN-LAST:event_botaoCriarCopiaActionPerformed
-
-    private void botaoRestaurarCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRestaurarCopiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoRestaurarCopiaActionPerformed
 
     private void TextFieldICMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldICMSActionPerformed
       
@@ -1349,7 +1316,6 @@ public class visao extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField TextFieldResultadoPrecoProduto;
     private javax.swing.JFormattedTextField TextFieldResultadoPrecoVenda;
     private javax.swing.JButton botaoCriarCopia;
-    private javax.swing.JButton botaoRestaurarCopia;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonLimparCampos;

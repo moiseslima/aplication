@@ -990,23 +990,18 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
-                          <Component id="botaoCriarCopia" min="-2" pref="250" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="338" max="-2" attributes="0"/>
-                          <Component id="botaoRestaurarCopia" min="-2" pref="250" max="-2" attributes="0"/>
-                          <EmptySpace pref="375" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="botaoCriarCopia" min="-2" pref="230" max="-2" attributes="0"/>
+                          <EmptySpace pref="1095" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="botaoCriarCopia" alignment="3" min="-2" pref="115" max="-2" attributes="0"/>
-                              <Component id="botaoRestaurarCopia" alignment="3" min="-2" pref="115" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="314" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="botaoCriarCopia" min="-2" pref="60" max="-2" attributes="0"/>
+                          <EmptySpace pref="466" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1021,20 +1016,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCriarCopiaActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="botaoRestaurarCopia">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="d7" green="6b" red="42" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="d7" green="6b" red="42" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="RESTAURAR C&#xd3;PIA DE SEGURAN&#xc7;A"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoRestaurarCopiaActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
