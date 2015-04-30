@@ -427,22 +427,27 @@ public class visao extends javax.swing.JFrame {
         jLabel3ImpostoEstadual2.setText("O Imposto ICMS Custará:");
 
         TextFieldResultadoIF.setEditable(false);
+        TextFieldResultadoIF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
         TextFieldResultadoIF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoIF.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoIE.setEditable(false);
+        TextFieldResultadoIE.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
         TextFieldResultadoIE.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoIE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoIPI.setEditable(false);
+        TextFieldResultadoIPI.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
         TextFieldResultadoIPI.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoIPI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoFrete.setEditable(false);
+        TextFieldResultadoFrete.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
         TextFieldResultadoFrete.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoFrete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoCustosGerais.setEditable(false);
+        TextFieldResultadoCustosGerais.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
         TextFieldResultadoCustosGerais.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoCustosGerais.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         TextFieldResultadoCustosGerais.addActionListener(new java.awt.event.ActionListener() {
@@ -452,6 +457,7 @@ public class visao extends javax.swing.JFrame {
         });
 
         TextFieldResultadoGanhoLivre.setEditable(false);
+        TextFieldResultadoGanhoLivre.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
         TextFieldResultadoGanhoLivre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoGanhoLivre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         TextFieldResultadoGanhoLivre.addActionListener(new java.awt.event.ActionListener() {
@@ -461,10 +467,12 @@ public class visao extends javax.swing.JFrame {
         });
 
         TextFieldResultadoICMS.setEditable(false);
+        TextFieldResultadoICMS.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
         TextFieldResultadoICMS.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoICMS.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoPrecoVenda.setEditable(false);
+        TextFieldResultadoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
         TextFieldResultadoPrecoVenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoPrecoVenda.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         TextFieldResultadoPrecoVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -504,6 +512,7 @@ public class visao extends javax.swing.JFrame {
         jLabel23.setText("R$:");
 
         TextFieldResultadoPrecoProduto.setEditable(false);
+        TextFieldResultadoPrecoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
         TextFieldResultadoPrecoProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoPrecoProduto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         TextFieldResultadoPrecoProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -848,8 +857,27 @@ public class visao extends javax.swing.JFrame {
             new String [] {
                 "codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "ICMS", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(25);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(25);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(25);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(25);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(25);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(25);
+            jTable1.getColumnModel().getColumn(8).setPreferredWidth(25);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(25);
+        }
 
         jButtonAlterar.setText("Alterar");
         jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -863,13 +891,10 @@ public class visao extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1349, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1265, Short.MAX_VALUE)
+                .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1369, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -905,7 +930,7 @@ public class visao extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(548, Short.MAX_VALUE))
+                .addContainerGap(586, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab3", jPanel4);
