@@ -32,8 +32,8 @@ public class BackupRestauracao {
         
         //plataforma não linux (windows/moises): 
         else{
-            new WindowsShell().executeCommand("C:\\Program Files (x86)\\MySQL\\MySQL Server 5.6\\bin\\mysqldump.exe", "--user=root", "--password=Moises@125", "armazenamento", "--result-file=C:\\backupSistema.sql");
-            new WindowsShell().executeCommand("C:\\Program Files (x86)\\MySQL\\MySQL Server 5.6\\bin\\mysqldump.exe", "--user=root", "--password=Moises@125", "armazenamento", "--result-file="+
+            new WindowsShell().executeCommand("C:\\Program Files\\MySQL\\MySQL Server 5.6\\bin\\mysqldump.exe", "--user=root", "--password=Moises@125", "armazenamento", "--result-file=C:\\backupSistema.sql");
+            new WindowsShell().executeCommand("C:\\Program Files\\MySQL\\MySQL Server 5.6\\bin\\mysqldump.exe", "--user=root", "--password=Moises@125", "armazenamento", "--result-file="+
                                                                                                                                                      new PenDrive().procuraUnidadePenDrive()+ "\\backupSistema.sql");
         }
     }
