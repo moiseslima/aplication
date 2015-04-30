@@ -5,6 +5,8 @@
  */
 package distoleos;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author moises
@@ -404,7 +406,8 @@ public class AlterarTabela extends javax.swing.JFrame {
             throw new java.lang.RuntimeException("erro fechar");
         }
 
-            
+        DistOleos.getSharedApplication().carregarTabela();
+        JOptionPane.showMessageDialog(this, "Dados atualizados com SUCESSO", jTextField1.getText(), JOptionPane.INFORMATION_MESSAGE, null);
         
         
         

@@ -11,12 +11,17 @@ package distoleos;
  */
 public class DistOleos {
 
-    /**
-     * @param args the command line arguments
-     */
+    private static visao _app;
+    public static visao getSharedApplication() 
+    {
+        if (_app == null)
+            _app = new visao();
+        return _app;
+    }
     public static void main(String[] args) {
         // TODO code application logic here
-         new visao().setVisible(true);
+         //new visao().setVisible(true);
+         getSharedApplication().setVisible(true);
     }
 
       

@@ -62,7 +62,13 @@ public class visao extends javax.swing.JFrame {
 //Classe Adicionar
 
     public void carregarTabela() {
-      
+        DefaultTableModel dtm = (DefaultTableModel) this.jTable1.getModel();
+        int rowCount = dtm.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            dtm.removeRow(i);
+        }
+        
+       
         //fazer a conexao com o mysql
         java.sql.Connection con;
         try {
@@ -127,11 +133,13 @@ public class visao extends javax.swing.JFrame {
             throw new java.lang.RuntimeException("erro fechar");
         }
 
-        DefaultTableModel dtm = (DefaultTableModel) this.jTable1.getModel();
+        
         for (int i = 0; i < dados.size(); i++) {
             dtm.addRow(dados.get(i));
         }
+        
 
+        jTable1.revalidate();
     }
 
     //Fim da classe adicionar
