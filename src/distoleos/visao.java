@@ -26,7 +26,6 @@ public class visao extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         TextFieldMaterial.grabFocus();
-        //focar ao iniciar o programa
         if (TextFieldMaterial.getText().isEmpty()) {
             TextFieldMaterial.setText("0");
         }
