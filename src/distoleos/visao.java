@@ -5,10 +5,8 @@
  */
 package distoleos;
 
-import java.io.IOException;
+
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,14 +18,15 @@ public class visao extends javax.swing.JFrame {
 
     double Custos, Soma, PrecoUnitario, ImpostoFederal, ImpostoEstadual, IPI, ICMS, GanhoLivre, CustosGerais, Frete, PrecoVenda;
     String Material;
-    private Object jTextField3PrecoUnitario;
 
     /**
      * Creates new form visao
      */
     public visao() {
         initComponents();
-        TextFieldMaterial.grabFocus(); //focar ao iniciar o programa
+        setExtendedState(MAXIMIZED_BOTH);
+        TextFieldMaterial.grabFocus();
+        //focar ao iniciar o programa
         if (TextFieldMaterial.getText().isEmpty()) {
             TextFieldMaterial.setText("0");
         }
@@ -57,6 +56,7 @@ public class visao extends javax.swing.JFrame {
             TextFieldResultadoPrecoVenda.setText("0");
         }
 
+        TextFieldMaterial.selectAll();
         this.carregarTabela();
     }
 //Classe Adicionar
@@ -171,15 +171,15 @@ public class visao extends javax.swing.JFrame {
         if (TextFieldResultadoPrecoVenda.getText().isEmpty()) {
             TextFieldResultadoPrecoVenda.setText("0");
         }
-        Material = (TextFieldMaterial.getText());
-        PrecoUnitario = Double.parseDouble(TextFieldPrecoUnitario.getText());
-        ImpostoEstadual = Double.parseDouble(TextFieldImpostoEstadual.getText());
-        ImpostoFederal = Double.parseDouble(TextFieldImpostoFederal.getText());
-        IPI = Double.parseDouble(TextFieldIPI.getText());
-        ICMS = Double.parseDouble(TextFieldICMS.getText());
-        GanhoLivre = Double.parseDouble(TextFieldGanhoLivre.getText());
-        Frete = Double.parseDouble(TextFieldFrete.getText());
-
+        Material = (TextFieldMaterial.getText().replace(",", "."));
+        PrecoUnitario = Double.parseDouble(TextFieldPrecoUnitario.getText().replace(",", "."));
+        ImpostoEstadual = Double.parseDouble(TextFieldImpostoEstadual.getText().replace(",", "."));
+        ImpostoFederal = Double.parseDouble(TextFieldImpostoFederal.getText().replace(",", "."));
+        IPI = Double.parseDouble(TextFieldIPI.getText().replace(",", "."));
+        ICMS = Double.parseDouble(TextFieldICMS.getText().replace(",", "."));
+        GanhoLivre = Double.parseDouble(TextFieldGanhoLivre.getText().replace(",", "."));
+        Frete = Double.parseDouble(TextFieldFrete.getText().replace(",", "."));
+        /* //os campos da esquerda não mais ficam "0.0", se deletar as seguintes linhas:
         TextFieldMaterial.setText(String.valueOf(Material));
         TextFieldPrecoUnitario.setText(String.valueOf(PrecoUnitario));
         TextFieldImpostoEstadual.setText(String.valueOf(ImpostoEstadual));
@@ -188,46 +188,47 @@ public class visao extends javax.swing.JFrame {
         TextFieldICMS.setText(String.valueOf(ICMS));
         TextFieldGanhoLivre.setText(String.valueOf(GanhoLivre));
         TextFieldFrete.setText(String.valueOf(Frete));
-
+        */
+        
         // Variáveis Necessárias para fazer a soma dos campos e mostrar o total
-        double ResultadoPrecoUnitario = Double.parseDouble(TextFieldPrecoUnitario.getText());
-        TextFieldPrecoUnitario.setText(String.valueOf(ResultadoPrecoUnitario));
+        double ResultadoPrecoUnitario = Double.parseDouble(TextFieldPrecoUnitario.getText().replace(",", "."));
+        //TextFieldPrecoUnitario.setText(String.valueOf(ResultadoPrecoUnitario));
         
         String ResultadoMaterial = (TextFieldMaterial.getText());
-        TextFieldMaterial.setText(String.valueOf(ResultadoMaterial));
+       // TextFieldMaterial.setText(String.valueOf(ResultadoMaterial));
 
         double ResultadoIPI = (IPI / 100) * ResultadoPrecoUnitario;
-        TextFieldResultadoIPI.setText(String.valueOf(ResultadoIPI));
+        TextFieldResultadoIPI.setText(String.valueOf(ResultadoIPI).replace(".", ","));
 
         double ResultadoFrete = (Frete / 100) * ResultadoPrecoUnitario;
-        TextFieldResultadoFrete.setText(String.valueOf(ResultadoFrete));
+        TextFieldResultadoFrete.setText(String.valueOf(ResultadoFrete).replace(".", ","));
 
         double ResultadoGanhoLivre = (GanhoLivre / 100) * ResultadoPrecoUnitario;
-        TextFieldResultadoGanhoLivre.setText(String.valueOf(ResultadoGanhoLivre));
+        TextFieldResultadoGanhoLivre.setText(String.valueOf(ResultadoGanhoLivre).replace(".", ","));
 
         double ResultadoIF = (ImpostoFederal / 100) * ResultadoPrecoUnitario;
-        TextFieldResultadoIF.setText(String.valueOf(ResultadoIF));
+        TextFieldResultadoIF.setText(String.valueOf(ResultadoIF).replace(".", ","));
 
         double ResultadoICMS = (ICMS / 100) * ResultadoPrecoUnitario;
-        TextFieldResultadoICMS.setText(String.valueOf(ResultadoICMS));
+        TextFieldResultadoICMS.setText(String.valueOf(ResultadoICMS).replace(".", ","));
 
         double ResultadoIE = (ImpostoEstadual / 100) * ResultadoPrecoUnitario;
-        TextFieldResultadoIE.setText(String.valueOf(ResultadoIE));
+        TextFieldResultadoIE.setText(String.valueOf(ResultadoIE).replace(".", ","));
         // We have to parse the text to a type Double.
 
         Custos = ResultadoPrecoUnitario + ResultadoICMS + ResultadoIF + ResultadoIPI + ResultadoIE + ResultadoFrete;
         PrecoVenda = Custos + ResultadoGanhoLivre;
 
-        TextFieldResultadoPrecoVenda.setText("");
+       /* TextFieldResultadoPrecoVenda.setText("");
         TextFieldResultadoCustosGerais.setText("");
         TextFieldResultadoPrecoProduto.setText("");
         TextFieldResultadoMaterial.setText("");
+        */
+        TextFieldResultadoPrecoProduto.setText(String.valueOf(ResultadoPrecoUnitario).replace(".", ","));
+        TextFieldResultadoMaterial.setText(String.valueOf(ResultadoMaterial).replace(".", ","));
         
-        TextFieldResultadoPrecoProduto.setText(String.valueOf(ResultadoPrecoUnitario));
-       TextFieldResultadoMaterial.setText(String.valueOf(ResultadoMaterial));
-        
-        TextFieldResultadoCustosGerais.setText(String.valueOf(Custos));
-        TextFieldResultadoPrecoVenda.setText(String.valueOf(PrecoVenda));
+        TextFieldResultadoCustosGerais.setText(String.valueOf(Custos).replace(".", ","));
+        TextFieldResultadoPrecoVenda.setText(String.valueOf(PrecoVenda).replace(".", ","));
         
 
     }
@@ -309,6 +310,10 @@ public class visao extends javax.swing.JFrame {
         botaoCriarCopia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(getMaximumSize());
+
+        jPanel2.setMaximumSize(new java.awt.Dimension(1369, 743));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1369, 743));
 
         jTextField1.setEditable(false);
         jTextField1.setBackground(new java.awt.Color(255, 255, 153));
@@ -327,7 +332,7 @@ public class visao extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel1.setText("Digite o percentual do Imposto federal:");
+        jLabel1.setText("Digite o percentual do Imposto Federal:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 204, 0));
@@ -435,59 +440,44 @@ public class visao extends javax.swing.JFrame {
         jLabel3ImpostoEstadual2.setText("O Imposto ICMS Custará:");
 
         TextFieldResultadoIF.setEditable(false);
-        TextFieldResultadoIF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        TextFieldResultadoIF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
         TextFieldResultadoIF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoIF.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoIE.setEditable(false);
-        TextFieldResultadoIE.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        TextFieldResultadoIE.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
         TextFieldResultadoIE.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoIE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoIPI.setEditable(false);
-        TextFieldResultadoIPI.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        TextFieldResultadoIPI.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
         TextFieldResultadoIPI.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoIPI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoFrete.setEditable(false);
-        TextFieldResultadoFrete.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        TextFieldResultadoFrete.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
         TextFieldResultadoFrete.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoFrete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoCustosGerais.setEditable(false);
-        TextFieldResultadoCustosGerais.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        TextFieldResultadoCustosGerais.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
         TextFieldResultadoCustosGerais.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoCustosGerais.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        TextFieldResultadoCustosGerais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldResultadoCustosGeraisActionPerformed(evt);
-            }
-        });
 
         TextFieldResultadoGanhoLivre.setEditable(false);
-        TextFieldResultadoGanhoLivre.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        TextFieldResultadoGanhoLivre.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
         TextFieldResultadoGanhoLivre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoGanhoLivre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        TextFieldResultadoGanhoLivre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldResultadoGanhoLivreActionPerformed(evt);
-            }
-        });
 
         TextFieldResultadoICMS.setEditable(false);
-        TextFieldResultadoICMS.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        TextFieldResultadoICMS.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
         TextFieldResultadoICMS.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoICMS.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoPrecoVenda.setEditable(false);
-        TextFieldResultadoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        TextFieldResultadoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
         TextFieldResultadoPrecoVenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoPrecoVenda.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        TextFieldResultadoPrecoVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldResultadoPrecoVendaActionPerformed(evt);
-            }
-        });
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -520,23 +510,18 @@ public class visao extends javax.swing.JFrame {
         jLabel23.setText("R$:");
 
         TextFieldResultadoPrecoProduto.setEditable(false);
-        TextFieldResultadoPrecoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        TextFieldResultadoPrecoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
         TextFieldResultadoPrecoProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoPrecoProduto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        TextFieldResultadoPrecoProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldResultadoPrecoProdutoActionPerformed(evt);
-            }
-        });
 
         jLabel1PrecoUnitario1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1PrecoUnitario1.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel1PrecoUnitario1.setText("Digite aqui a descrição do Produto/material:");
+        jLabel1PrecoUnitario1.setText("Digite aqui a descrição do Produto/Material:");
 
         jLabel7PrecodeVenda1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7PrecodeVenda1.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 1, 24)); // NOI18N
         jLabel7PrecodeVenda1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel7PrecodeVenda1.setText("O Preço de Venda  será de:");
+        jLabel7PrecodeVenda1.setText("O Preço de Venda será de:");
 
         jButtonGravar.setText("Gravar");
         jButtonGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -545,17 +530,6 @@ public class visao extends javax.swing.JFrame {
             }
         });
 
-        TextFieldMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TextFieldMaterialMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                TextFieldMaterialMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TextFieldMaterialMouseExited(evt);
-            }
-        });
         TextFieldMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldMaterialActionPerformed(evt);
@@ -593,11 +567,6 @@ public class visao extends javax.swing.JFrame {
         TextFieldResultadoMaterial.setEditable(false);
         TextFieldResultadoMaterial.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         TextFieldResultadoMaterial.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        TextFieldResultadoMaterial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldResultadoMaterialActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -610,44 +579,43 @@ public class visao extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel9))
-                                        .addGap(54, 54, 54)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(TextFieldGanhoLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel14))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(TextFieldFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel13))))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addGap(54, 54, 54)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(TextFieldICMS)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel12))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(TextFieldImpostoEstadual)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel7))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(TextFieldIPI, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel8)))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel5)
+                                                    .addComponent(jLabel9))
+                                                .addGap(54, 54, 54)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                        .addComponent(TextFieldGanhoLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jLabel14))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                        .addComponent(TextFieldFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jLabel13))))
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel2)
+                                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                .addGap(54, 54, 54)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                        .addComponent(TextFieldICMS)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jLabel12))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                        .addComponent(TextFieldImpostoEstadual)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jLabel7))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                        .addComponent(TextFieldIPI, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(jLabel8))))))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1PrecoUnitario1)
@@ -659,48 +627,33 @@ public class visao extends javax.swing.JFrame {
                                                         .addGap(31, 31, 31)
                                                         .addComponent(jLabel11))
                                                     .addComponent(jLabel1))))
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGap(12, 12, 12)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(TextFieldImpostoFederal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(TextFieldPrecoUnitario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel6)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(TextFieldMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(12, 12, 12)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(TextFieldPrecoUnitario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                                            .addComponent(TextFieldImpostoFederal, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TextFieldMaterial))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel6)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(0, 67, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButtonLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(79, 79, 79)
-                                .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70)))
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jButtonLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(79, 79, 79)
+                                        .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(70, 70, 70)))))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(64, 64, 64)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel5CustosGerais)
-                                            .addComponent(jLabel7PrecodeVenda1, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(TextFieldResultadoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel19)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TextFieldResultadoCustosGerais, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(TextFieldResultadoMaterial, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel3ImpostoEstadual1)
                                             .addComponent(jLabel3ImpostoEstadual3)
@@ -711,38 +664,33 @@ public class visao extends javax.swing.JFrame {
                                                 .addComponent(jLabel3ImpostoEstadual2)
                                                 .addComponent(jLabel6GanhoLivre, javax.swing.GroupLayout.Alignment.TRAILING)))
                                         .addGap(18, 18, 18)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel20)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TextFieldResultadoFrete))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel22)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TextFieldResultadoICMS))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel17)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TextFieldResultadoIE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel23)
-                                                    .addComponent(jLabel16))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(TextFieldResultadoPrecoProduto)
-                                                    .addComponent(TextFieldResultadoIF, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel18)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TextFieldResultadoIPI))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                                .addComponent(jLabel21)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(TextFieldResultadoGanhoLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(TextFieldResultadoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(128, 128, 128)))))
+                                            .addComponent(TextFieldResultadoFrete, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TextFieldResultadoICMS, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TextFieldResultadoIE, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TextFieldResultadoPrecoProduto, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TextFieldResultadoIF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(TextFieldResultadoIPI, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(TextFieldResultadoGanhoLivre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel7PrecodeVenda1)
+                                            .addComponent(jLabel5CustosGerais))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(TextFieldResultadoCustosGerais, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(TextFieldResultadoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 86, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -754,9 +702,9 @@ public class visao extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(TextFieldResultadoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(TextFieldResultadoMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3ImpostoEstadual3)
                             .addComponent(jLabel23)
@@ -764,50 +712,48 @@ public class visao extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2ImpostoFederal)
-                            .addComponent(TextFieldResultadoIF, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16))
+                            .addComponent(jLabel16)
+                            .addComponent(TextFieldResultadoIF, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(TextFieldResultadoIE, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel17)))
+                                    .addComponent(jLabel17)
+                                    .addComponent(TextFieldResultadoIE, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(3, 3, 3))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel3ImpostoEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TextFieldResultadoIPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18)
-                            .addComponent(jLabel3ImpostoEstadual1))
+                            .addComponent(jLabel3ImpostoEstadual1)
+                            .addComponent(TextFieldResultadoIPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TextFieldResultadoICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3ImpostoEstadual2)
-                            .addComponent(jLabel22))
+                            .addComponent(jLabel22)
+                            .addComponent(TextFieldResultadoICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
                             .addComponent(jLabel4Frete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TextFieldResultadoFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20))
+                            .addComponent(jLabel20)
+                            .addComponent(TextFieldResultadoFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6GanhoLivre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TextFieldResultadoGanhoLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21))
-                        .addGap(20, 20, 20)
+                            .addComponent(jLabel21)
+                            .addComponent(TextFieldResultadoGanhoLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5CustosGerais, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TextFieldResultadoCustosGerais, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel19))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(TextFieldResultadoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel7PrecodeVenda1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(10, 10, 10))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel7PrecodeVenda1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TextFieldResultadoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
@@ -853,7 +799,7 @@ public class visao extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jSeparator1)))
         );
 
         jTabbedPane1.addTab("tab1", jPanel2);
@@ -938,7 +884,7 @@ public class visao extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(586, Short.MAX_VALUE))
+                .addContainerGap(591, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab3", jPanel4);
@@ -954,7 +900,7 @@ public class visao extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -965,7 +911,7 @@ public class visao extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -992,7 +938,8 @@ public class visao extends javax.swing.JFrame {
         TextFieldResultadoPrecoVenda.setText("");
         TextFieldResultadoPrecoProduto.setText("");
 
-        TextFieldMaterial.grabFocus(); //foca o campo preco unitario
+        TextFieldMaterial.grabFocus();
+        TextFieldMaterial.selectAll();//foca o campo preco unitario
 
     }//GEN-LAST:event_jButtonLimparCamposActionPerformed
 
@@ -1003,25 +950,65 @@ public class visao extends javax.swing.JFrame {
     private void TextFieldPrecoUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPrecoUnitarioActionPerformed
 
         this.LogicaSomas();
-        TextFieldPrecoUnitario.transferFocus(); //ao apertar enter, vai pro proximo campo
+        TextFieldResultadoPrecoProduto.grabFocus();
+	TextFieldResultadoIF.grabFocus();
+	TextFieldResultadoIE.grabFocus();
+	TextFieldResultadoIPI.grabFocus();
+	TextFieldResultadoICMS.grabFocus();
+	TextFieldResultadoFrete.grabFocus();
+	TextFieldResultadoGanhoLivre.grabFocus();
+        TextFieldResultadoCustosGerais.grabFocus();
+	TextFieldResultadoPrecoVenda.grabFocus();
+        TextFieldImpostoFederal.requestFocus();
+        TextFieldImpostoFederal.selectAll();
 
     }//GEN-LAST:event_TextFieldPrecoUnitarioActionPerformed
 
     // num1 = PrecoUnitario, num2 = ImpostoEstadual, num3 = IPI, num4 = Frete, num5= GanhoLivre, num6 = ImpostoFederal;
     private void TextFieldImpostoEstadualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldImpostoEstadualActionPerformed
         this.LogicaSomas();       
-        TextFieldImpostoEstadual.transferFocus(); //apertando enter, transfere foco p/proximo campo
+        TextFieldResultadoCustosGerais.grabFocus();
+	TextFieldResultadoPrecoVenda.grabFocus();
+        TextFieldResultadoPrecoProduto.grabFocus();
+	TextFieldResultadoIF.grabFocus();
+	TextFieldResultadoIE.grabFocus();
+	TextFieldResultadoIPI.grabFocus();
+	TextFieldResultadoICMS.grabFocus();
+	TextFieldResultadoFrete.grabFocus();
+	TextFieldResultadoGanhoLivre.grabFocus();
+        TextFieldIPI.requestFocus();
+         TextFieldIPI.selectAll();
     }//GEN-LAST:event_TextFieldImpostoEstadualActionPerformed
 
     private void TextFieldIPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldIPIActionPerformed
-         this.LogicaSomas();         
-        TextFieldIPI.transferFocus(); //apertando enter, transfere foco p/proximo campo
+         this.LogicaSomas();  
+         TextFieldResultadoCustosGerais.grabFocus();
+	TextFieldResultadoPrecoVenda.grabFocus();
+        TextFieldResultadoPrecoProduto.grabFocus();
+	TextFieldResultadoIF.grabFocus();
+	TextFieldResultadoIE.grabFocus();
+	TextFieldResultadoIPI.grabFocus();
+	TextFieldResultadoICMS.grabFocus();
+	TextFieldResultadoFrete.grabFocus();
+	TextFieldResultadoGanhoLivre.grabFocus();
+        TextFieldICMS.requestFocus();
+        TextFieldICMS.selectAll();
 
     }//GEN-LAST:event_TextFieldIPIActionPerformed
 
     private void TextFieldFreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldFreteActionPerformed
          this.LogicaSomas();   
-        TextFieldFrete.transferFocus(); //apertando enter, transfere foco p/proximo campo
+         TextFieldResultadoCustosGerais.grabFocus();
+	TextFieldResultadoPrecoVenda.grabFocus();
+        TextFieldResultadoPrecoProduto.grabFocus();
+	TextFieldResultadoIF.grabFocus();
+	TextFieldResultadoIE.grabFocus();
+	TextFieldResultadoIPI.grabFocus();
+	TextFieldResultadoICMS.grabFocus();
+	TextFieldResultadoFrete.grabFocus();
+	TextFieldResultadoGanhoLivre.grabFocus();
+        TextFieldGanhoLivre.requestFocus();
+        TextFieldGanhoLivre.selectAll();
     }//GEN-LAST:event_TextFieldFreteActionPerformed
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
@@ -1073,7 +1060,17 @@ public class visao extends javax.swing.JFrame {
 
     private void TextFieldGanhoLivreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldGanhoLivreActionPerformed
          this.LogicaSomas();   
-        TextFieldGanhoLivre.transferFocus(); //apertando enter, transfere foco p/proximo campo
+         TextFieldResultadoCustosGerais.grabFocus();
+	TextFieldResultadoPrecoVenda.grabFocus();
+        TextFieldResultadoPrecoProduto.grabFocus();
+	TextFieldResultadoIF.grabFocus();
+	TextFieldResultadoIE.grabFocus();
+	TextFieldResultadoIPI.grabFocus();
+	TextFieldResultadoICMS.grabFocus();
+	TextFieldResultadoFrete.grabFocus();
+	TextFieldResultadoGanhoLivre.grabFocus();
+        TextFieldGanhoLivre.transferFocus();
+        TextFieldGanhoLivre.selectAll();//apertando enter, transfere foco p/proximo campo
     }//GEN-LAST:event_TextFieldGanhoLivreActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -1096,26 +1093,25 @@ public class visao extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
-    private void TextFieldMaterialMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldMaterialMouseEntered
-
-    }//GEN-LAST:event_TextFieldMaterialMouseEntered
-
-    private void TextFieldMaterialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldMaterialMouseExited
-
-    }//GEN-LAST:event_TextFieldMaterialMouseExited
-
-    private void TextFieldMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldMaterialMouseClicked
-
-    }//GEN-LAST:event_TextFieldMaterialMouseClicked
-
     private void TextFieldMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldMaterialActionPerformed
          this.LogicaSomas();
-         TextFieldMaterial.transferFocus();
+         TextFieldPrecoUnitario.requestFocus();
+         TextFieldPrecoUnitario.selectAll();
     }//GEN-LAST:event_TextFieldMaterialActionPerformed
 
     private void TextFieldImpostoFederalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldImpostoFederalActionPerformed
-         this.LogicaSomas();   
-        TextFieldImpostoFederal.transferFocus(); //apertando enter, transfere foco p/proximo campo
+        this.LogicaSomas();
+        TextFieldResultadoCustosGerais.grabFocus();
+	TextFieldResultadoPrecoVenda.grabFocus();
+        TextFieldResultadoPrecoProduto.grabFocus();
+	TextFieldResultadoIF.grabFocus();
+	TextFieldResultadoIE.grabFocus();
+	TextFieldResultadoIPI.grabFocus();
+	TextFieldResultadoICMS.grabFocus();
+	TextFieldResultadoFrete.grabFocus();
+	TextFieldResultadoGanhoLivre.grabFocus();
+        TextFieldImpostoEstadual.requestFocus();
+        TextFieldImpostoEstadual.selectAll();//apertando enter, transfere foco p/proximo campo
     }//GEN-LAST:event_TextFieldImpostoFederalActionPerformed
 
         private void botaoCriarCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarCopiaActionPerformed
@@ -1124,38 +1120,28 @@ public class visao extends javax.swing.JFrame {
 
     private void TextFieldICMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldICMSActionPerformed
          this.LogicaSomas();   
-        TextFieldICMS.transferFocus(); //apertando enter, transfere foco p/proximo campo
+         TextFieldResultadoCustosGerais.grabFocus();
+	TextFieldResultadoPrecoVenda.grabFocus();
+        TextFieldResultadoPrecoProduto.grabFocus();
+	TextFieldResultadoIF.grabFocus();
+	TextFieldResultadoIE.grabFocus();
+	TextFieldResultadoIPI.grabFocus();
+	TextFieldResultadoICMS.grabFocus();
+	TextFieldResultadoFrete.grabFocus();
+	TextFieldResultadoGanhoLivre.grabFocus();
+        TextFieldFrete.requestFocus();
+        TextFieldFrete.selectAll();//apertando enter, transfere foco p/proximo campo
 
 
     }//GEN-LAST:event_TextFieldICMSActionPerformed
-
-    private void TextFieldResultadoPrecoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldResultadoPrecoProdutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldResultadoPrecoProdutoActionPerformed
-
-    private void TextFieldResultadoCustosGeraisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldResultadoCustosGeraisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldResultadoCustosGeraisActionPerformed
-
-    private void TextFieldResultadoPrecoVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldResultadoPrecoVendaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldResultadoPrecoVendaActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void TextFieldResultadoGanhoLivreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldResultadoGanhoLivreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldResultadoGanhoLivreActionPerformed
-
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void TextFieldResultadoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldResultadoMaterialActionPerformed
-        
-    }//GEN-LAST:event_TextFieldResultadoMaterialActionPerformed
 
     /**
      * @param args the command line arguments
