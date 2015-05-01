@@ -7,7 +7,6 @@ package distoleos;
 
 
 import java.util.Vector;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
