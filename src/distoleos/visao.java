@@ -214,7 +214,6 @@ public class visao extends javax.swing.JFrame {
 
         double ResultadoIE = (ImpostoEstadual / 100) * ResultadoPrecoUnitario;
         TextFieldResultadoIE.setText(String.valueOf(ResultadoIE).replace(".", ","));
-        // We have to parse the text to a type Double.
 
         Custos = ResultadoPrecoUnitario + ResultadoICMS + ResultadoIF + ResultadoIPI + ResultadoIE + ResultadoFrete;
         PrecoVenda = Custos + ResultadoGanhoLivre;
