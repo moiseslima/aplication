@@ -10,7 +10,6 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author moises
  */
 public class visao extends javax.swing.JFrame {
