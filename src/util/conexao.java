@@ -5,6 +5,7 @@ import javax.swing.*;
 
 public class conexao
 {
+    
     private ResourceBundle bundle = ResourceBundle.getBundle("bancoDistOleos");
 
         final private String driver = bundle.getString("driver");
@@ -15,7 +16,14 @@ public class conexao
         private Connection conexao;
         public Statement statement;
         public ResultSet resultset;
-         
+
+        public static conexao conec;     
+        public static conexao connection() 
+        {
+            if (conec == null)
+                conec = new conexao();
+            return conec;
+        }
         
        public void conecta(){
             try{

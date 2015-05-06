@@ -303,6 +303,8 @@ public class visao extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButtonAlterar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        botaoPesquisar = new javax.swing.JButton();
+        campoPesquisar = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         botaoCriarCopia = new javax.swing.JButton();
 
@@ -845,17 +847,33 @@ public class visao extends javax.swing.JFrame {
             }
         });
 
+        botaoPesquisar.setText("Pesquisar");
+        botaoPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoPesquisarActionPerformed(evt);
+            }
+        });
+
+        campoPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1369, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addComponent(campoPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botaoPesquisar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1369, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -865,8 +883,10 @@ public class visao extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAlterar)
-                    .addComponent(jButton1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(campoPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoPesquisar))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab2", jPanel3);
@@ -1032,16 +1052,16 @@ public class visao extends javax.swing.JFrame {
             throw new java.lang.RuntimeException("erro ao conectar");
         }
 
-        String Descricao = this.TextFieldMaterial.getText();
-        String Preco = this.TextFieldPrecoUnitario.getText();
-        String IPI = this.TextFieldResultadoIPI.getText();
-        String ICMS = this.TextFieldResultadoICMS.getText();
-        String Frete = this.TextFieldResultadoFrete.getText();
-        String GanhoLivre = this.TextFieldResultadoGanhoLivre.getText();
-        String CustosGerais = this.TextFieldResultadoCustosGerais.getText();
-        String PrecoVenda = this.TextFieldResultadoPrecoVenda.getText();
-        String ImpostoFederal = this.TextFieldResultadoIF.getText();
-        String ImpostoEstadual = this.TextFieldResultadoIE.getText();
+        String Descricao = this.TextFieldMaterial.getText().replace(",", ".");
+        String Preco = this.TextFieldPrecoUnitario.getText().replace(",", ".");
+        String IPI = this.TextFieldResultadoIPI.getText().replace(",", ".");
+        String ICMS = this.TextFieldResultadoICMS.getText().replace(",", ".");
+        String Frete = this.TextFieldResultadoFrete.getText().replace(",", ".");
+        String GanhoLivre = this.TextFieldResultadoGanhoLivre.getText().replace(",", ".");
+        String CustosGerais = this.TextFieldResultadoCustosGerais.getText().replace(",", ".");
+        String PrecoVenda = this.TextFieldResultadoPrecoVenda.getText().replace(",", ".");
+        String ImpostoFederal = this.TextFieldResultadoIF.getText().replace(",", ".");
+        String ImpostoEstadual = this.TextFieldResultadoIE.getText().replace(",", ".");
         String comando = "insert into producao ( Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda) "
                 + "values " + "('" + Descricao + "','" + Preco + "','" + ImpostoFederal + "','" + ImpostoEstadual + "', '" + IPI + "', '" + ICMS + "', '" + Frete + "', '" + GanhoLivre + "', '" + CustosGerais + "', '" + PrecoVenda + "')";
 
@@ -1155,7 +1175,7 @@ public class visao extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        int linhaSelecionada = this.jTable1.getSelectedRow();
         // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda)    
-
+/*
         String Descricao = this.jTable1.getValueAt(linhaSelecionada, 1).toString();
         String Preco = this.jTable1.getValueAt(linhaSelecionada, 2).toString();
         String ImpostoFederal = this.jTable1.getValueAt(linhaSelecionada, 3).toString();
@@ -1166,9 +1186,18 @@ public class visao extends javax.swing.JFrame {
         String GanhoLivre = this.jTable1.getValueAt(linhaSelecionada, 8).toString();
         String CustosGerais = this.jTable1.getValueAt(linhaSelecionada, 9).toString();
         String PrecoVenda = this.jTable1.getValueAt(linhaSelecionada, 10).toString();
-        String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
-        new JanelaRemover(Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda, codigo).setVisible(true);
+       */ 
+       String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
+        new JanelaRemover(codigo).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void botaoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPesquisarActionPerformed
+        new JanelaPesquisar(campoPesquisar.getText()).setVisible(true);
+    }//GEN-LAST:event_botaoPesquisarActionPerformed
+
+    private void campoPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPesquisarActionPerformed
+        botaoPesquisarActionPerformed(evt);
+    }//GEN-LAST:event_campoPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1225,6 +1254,8 @@ public class visao extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField TextFieldResultadoPrecoProduto;
     private javax.swing.JFormattedTextField TextFieldResultadoPrecoVenda;
     private javax.swing.JButton botaoCriarCopia;
+    private javax.swing.JButton botaoPesquisar;
+    private javax.swing.JTextField campoPesquisar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonGravar;
