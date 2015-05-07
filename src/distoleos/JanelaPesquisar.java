@@ -178,6 +178,7 @@ public class JanelaPesquisar extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoFecharActionPerformed
 
     private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
+        linhaSelecionada = this.jTable1.getSelectedRow();
         String Descricao = this.jTable1.getValueAt(linhaSelecionada, 1).toString();
         String Preco = this.jTable1.getValueAt(linhaSelecionada, 2).toString();
         String ImpostoFederal = this.jTable1.getValueAt(linhaSelecionada, 3).toString();

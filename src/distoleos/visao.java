@@ -1093,7 +1093,7 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_TextFieldGanhoLivreActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
-        int linhaSelecionada = this.jTable1.getSelectedRow();
+        linhaSelecionada = this.jTable1.getSelectedRow();
         // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda)    
 
         String Descricao = this.jTable1.getValueAt(linhaSelecionada, 1).toString();
