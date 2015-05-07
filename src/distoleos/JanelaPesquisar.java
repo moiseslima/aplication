@@ -109,14 +109,14 @@ public class JanelaPesquisar extends javax.swing.JFrame {
         botaoAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pesquisa");
+        setTitle("Precificação JBvox Óleos - Pesquisa");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "OutrosCustos", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
+                "Codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "OutrosCustos", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -128,6 +128,9 @@ public class JanelaPesquisar extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(55);
+        }
 
         botaoFechar.setText("Fechar");
         botaoFechar.addActionListener(new java.awt.event.ActionListener() {

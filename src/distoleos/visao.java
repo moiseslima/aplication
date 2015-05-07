@@ -85,6 +85,17 @@ public class visao extends javax.swing.JFrame {
     }
 //Classe Adicionar
 
+    public void atualizaResultados(){
+        TextFieldResultadoPrecoProduto.grabFocus();
+	TextFieldResultadoIF.grabFocus();
+	TextFieldResultadoIE.grabFocus();
+	TextFieldResultadoIPI.grabFocus();
+	TextFieldResultadoICMS.grabFocus();
+	TextFieldResultadoFrete.grabFocus();
+	TextFieldResultadoGanhoLivre.grabFocus();
+        TextFieldResultadoCustosGerais.grabFocus();
+	TextFieldResultadoPrecoVenda.grabFocus();
+    }
     public void carregarTabela() {
         DefaultTableModel dtm = (DefaultTableModel) this.jTable1.getModel();
         int rowCount = dtm.getRowCount();
@@ -316,6 +327,7 @@ public class visao extends javax.swing.JFrame {
         botaoCriarCopia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Precificação JBvox Óleos");
         setPreferredSize(getMaximumSize());
 
         jPanel2.setMaximumSize(new java.awt.Dimension(1369, 743));
@@ -350,7 +362,7 @@ public class visao extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel4.setText("Digite o percentual do ICMS :");
+        jLabel4.setText("Digite o percentual de Outros Custos :");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 204, 0));
@@ -443,7 +455,7 @@ public class visao extends javax.swing.JFrame {
 
         jLabel3ImpostoEstadual2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3ImpostoEstadual2.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel3ImpostoEstadual2.setText("O Imposto ICMS Custará:");
+        jLabel3ImpostoEstadual2.setText("Os Outros Custos são de:");
 
         TextFieldResultadoIF.setEditable(false);
         TextFieldResultadoIF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
@@ -816,7 +828,7 @@ public class visao extends javax.swing.JFrame {
 
             },
             new String [] {
-                "codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "OutrosCustos", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
+                "Codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "OutrosCustos", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -829,6 +841,7 @@ public class visao extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(55);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(40);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(25);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(25);
@@ -986,15 +999,7 @@ public class visao extends javax.swing.JFrame {
     private void TextFieldPrecoUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPrecoUnitarioActionPerformed
 
         this.LogicaSomas();
-        TextFieldResultadoPrecoProduto.grabFocus();
-	TextFieldResultadoIF.grabFocus();
-	TextFieldResultadoIE.grabFocus();
-	TextFieldResultadoIPI.grabFocus();
-	TextFieldResultadoICMS.grabFocus();
-	TextFieldResultadoFrete.grabFocus();
-	TextFieldResultadoGanhoLivre.grabFocus();
-        TextFieldResultadoCustosGerais.grabFocus();
-	TextFieldResultadoPrecoVenda.grabFocus();
+        atualizaResultados();
         TextFieldImpostoFederal.requestFocus();
         TextFieldImpostoFederal.selectAll();
 
@@ -1003,30 +1008,14 @@ public class visao extends javax.swing.JFrame {
     // num1 = PrecoUnitario, num2 = ImpostoEstadual, num3 = IPI, num4 = Frete, num5= GanhoLivre, num6 = ImpostoFederal;
     private void TextFieldImpostoEstadualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldImpostoEstadualActionPerformed
         this.LogicaSomas();       
-        TextFieldResultadoCustosGerais.grabFocus();
-	TextFieldResultadoPrecoVenda.grabFocus();
-        TextFieldResultadoPrecoProduto.grabFocus();
-	TextFieldResultadoIF.grabFocus();
-	TextFieldResultadoIE.grabFocus();
-	TextFieldResultadoIPI.grabFocus();
-	TextFieldResultadoICMS.grabFocus();
-	TextFieldResultadoFrete.grabFocus();
-	TextFieldResultadoGanhoLivre.grabFocus();
+        atualizaResultados();
         TextFieldIPI.requestFocus();
          TextFieldIPI.selectAll();
     }//GEN-LAST:event_TextFieldImpostoEstadualActionPerformed
 
     private void TextFieldIPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldIPIActionPerformed
          this.LogicaSomas();  
-         TextFieldResultadoCustosGerais.grabFocus();
-	TextFieldResultadoPrecoVenda.grabFocus();
-        TextFieldResultadoPrecoProduto.grabFocus();
-	TextFieldResultadoIF.grabFocus();
-	TextFieldResultadoIE.grabFocus();
-	TextFieldResultadoIPI.grabFocus();
-	TextFieldResultadoICMS.grabFocus();
-	TextFieldResultadoFrete.grabFocus();
-	TextFieldResultadoGanhoLivre.grabFocus();
+        atualizaResultados();
         TextFieldICMS.requestFocus();
         TextFieldICMS.selectAll();
 
@@ -1034,15 +1023,7 @@ public class visao extends javax.swing.JFrame {
 
     private void TextFieldFreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldFreteActionPerformed
          this.LogicaSomas();   
-         TextFieldResultadoCustosGerais.grabFocus();
-	TextFieldResultadoPrecoVenda.grabFocus();
-        TextFieldResultadoPrecoProduto.grabFocus();
-	TextFieldResultadoIF.grabFocus();
-	TextFieldResultadoIE.grabFocus();
-	TextFieldResultadoIPI.grabFocus();
-	TextFieldResultadoICMS.grabFocus();
-	TextFieldResultadoFrete.grabFocus();
-	TextFieldResultadoGanhoLivre.grabFocus();
+        atualizaResultados();
         TextFieldGanhoLivre.requestFocus();
         TextFieldGanhoLivre.selectAll();
     }//GEN-LAST:event_TextFieldFreteActionPerformed
@@ -1078,15 +1059,7 @@ public class visao extends javax.swing.JFrame {
 
     private void TextFieldGanhoLivreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldGanhoLivreActionPerformed
          this.LogicaSomas();   
-         TextFieldResultadoCustosGerais.grabFocus();
-	TextFieldResultadoPrecoVenda.grabFocus();
-        TextFieldResultadoPrecoProduto.grabFocus();
-	TextFieldResultadoIF.grabFocus();
-	TextFieldResultadoIE.grabFocus();
-	TextFieldResultadoIPI.grabFocus();
-	TextFieldResultadoICMS.grabFocus();
-	TextFieldResultadoFrete.grabFocus();
-	TextFieldResultadoGanhoLivre.grabFocus();
+        atualizaResultados();
         jButtonGravar.grabFocus();
         jButtonGravar.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), evt);
         jButtonGravar.getActionMap().put("DoClick", null);
@@ -1120,15 +1093,7 @@ public class visao extends javax.swing.JFrame {
 
     private void TextFieldImpostoFederalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldImpostoFederalActionPerformed
         this.LogicaSomas();
-        TextFieldResultadoCustosGerais.grabFocus();
-	TextFieldResultadoPrecoVenda.grabFocus();
-        TextFieldResultadoPrecoProduto.grabFocus();
-	TextFieldResultadoIF.grabFocus();
-	TextFieldResultadoIE.grabFocus();
-	TextFieldResultadoIPI.grabFocus();
-	TextFieldResultadoICMS.grabFocus();
-	TextFieldResultadoFrete.grabFocus();
-	TextFieldResultadoGanhoLivre.grabFocus();
+        atualizaResultados();
         TextFieldImpostoEstadual.requestFocus();
         TextFieldImpostoEstadual.selectAll();//apertando enter, transfere foco p/proximo campo
     }//GEN-LAST:event_TextFieldImpostoFederalActionPerformed
@@ -1139,15 +1104,7 @@ public class visao extends javax.swing.JFrame {
 
     private void TextFieldICMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldICMSActionPerformed
          this.LogicaSomas();   
-         TextFieldResultadoCustosGerais.grabFocus();
-	TextFieldResultadoPrecoVenda.grabFocus();
-        TextFieldResultadoPrecoProduto.grabFocus();
-	TextFieldResultadoIF.grabFocus();
-	TextFieldResultadoIE.grabFocus();
-	TextFieldResultadoIPI.grabFocus();
-	TextFieldResultadoICMS.grabFocus();
-	TextFieldResultadoFrete.grabFocus();
-	TextFieldResultadoGanhoLivre.grabFocus();
+        atualizaResultados();
         TextFieldFrete.requestFocus();
         TextFieldFrete.selectAll();//apertando enter, transfere foco p/proximo campo
 
