@@ -137,7 +137,7 @@ public class AlterarTabela extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel4.setText("Digite o percentual do ICMS :");
+        jLabel4.setText("Digite o percentual dos Outros Custos");
 
         jTextField2.setEditable(false);
         jTextField2.setBackground(new java.awt.Color(51, 51, 0));
@@ -360,17 +360,6 @@ public class AlterarTabela extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       
-        //fazer a conexao com o mysql
-        /*java.sql.Connection con;
-        try {
-            Class.forName("org.gjt.mm.mysql.Driver");
-            con = java.sql.DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/armazenamento", "root", "Moises@125");
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro ao conectar");
-
-        }*/
         conexao.connection().conecta();
         
      // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda) 
@@ -390,35 +379,13 @@ public class AlterarTabela extends javax.swing.JFrame {
         
         
         
-          //executa comando
-        /*
-        try {
-            java.sql.Statement stmt = con.createStatement();
-            stmt.executeUpdate(comando);
-            stmt.close();
-            con.close();
-        } catch (java.sql.SQLException e) {
-            throw new java.lang.RuntimeException(e.getMessage());
-        }*/
-        conexao.connection().executeSQL(comando);
+        conexao.connection().executeSQLUpdate(comando);
         
-           //Fechando a Conexão:
-        /*
-                try {
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro fechar");
-        }*/
         conexao.connection().desconecta();
 
         DistOleos.getSharedApplication().carregarTabela();
         JOptionPane.showMessageDialog(this, "Dados atualizados com SUCESSO", jTextField1.getText(), JOptionPane.INFORMATION_MESSAGE, null);
-        
-        
-        
-        
-                
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

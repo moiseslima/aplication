@@ -91,42 +91,13 @@ public class JanelaRemover extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //fazer a conexao com o mysql
-        /*java.sql.Connection con;
-        try {
-            Class.forName("org.gjt.mm.mysql.Driver");
-            con = java.sql.DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/armazenamento", "root", "Moises@125");
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro ao conectar");
-
-        }*/
         conexao.connection().conecta();
-
         // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda) 
         String comando = "delete from producao "
                 + "where (codigo) = '" +this.codigo + "'";
                 System.out.println(comando);
         //executa comando
-        conexao.connection().executeSQL(comando);
-        /*
-        try {
-            java.sql.Statement stmt = con.createStatement();
-            stmt.executeUpdate(comando);
-            stmt.close();
-            con.close();
-        } catch (java.sql.SQLException e) {
-            throw new java.lang.RuntimeException(e.getMessage());
-        }*/
-
-        //Fechando a Conexão:
-        /*try {
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro fechar");
-        }*/
+        conexao.connection().executeSQLUpdate(comando);
         conexao.connection().desconecta();
 
         DistOleos.getSharedApplication().carregarTabela();

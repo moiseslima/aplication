@@ -6,8 +6,17 @@
 package distoleos;
 
 
+import java.awt.Point;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+import util.conexao;
 
 /**
  * @author moises
@@ -16,12 +25,30 @@ public class visao extends javax.swing.JFrame {
 
     double Custos, Soma, PrecoUnitario, ImpostoFederal, ImpostoEstadual, IPI, ICMS, GanhoLivre, CustosGerais, Frete, PrecoVenda;
     String Material;
-
+    int linhaSelecionada;
     /**
      * Creates new form visao
      */
     public visao() {
         initComponents();
+        jButtonGravar.addKeyListener(new KeyAdapter(){
+          public void keyPressed(KeyEvent e) {
+              if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                  jButtonGravar.doClick();
+              }
+          }
+      });
+        jTable1.addMouseListener(new MouseAdapter() {
+        public void mousePressed(MouseEvent me) {
+        JTable table =(JTable) me.getSource();
+        Point p = me.getPoint();
+        int row = table.rowAtPoint(p);
+        if (me.getClickCount() == 2) {
+            linhaSelecionada = row;
+            jButtonAlterar.doClick();
+        }
+    }
+});
         setExtendedState(MAXIMIZED_BOTH);
         TextFieldMaterial.grabFocus();
         if (TextFieldMaterial.getText().isEmpty()) {
@@ -64,25 +91,14 @@ public class visao extends javax.swing.JFrame {
         for (int i = rowCount - 1; i >= 0; i--) {
             dtm.removeRow(i);
         }
-        //fazer a conexao com o mysql
-        java.sql.Connection con;
-        try {
-            Class.forName("org.gjt.mm.mysql.Driver");
-            con = java.sql.DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/armazenamento", "root", "Moises@125");
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro ao conectar");
-
-        }
+        conexao.connection().conecta();
 
         Vector<Vector> dados = new Vector<Vector>();
 
         String comando = "select * from producao";
 
         try {
-            java.sql.Statement stmt = con.createStatement();
-            java.sql.ResultSet rs = stmt.executeQuery(comando);
+            java.sql.ResultSet rs = conexao.connection().executeSQLQuery(comando);
 
             // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda)    
             while (rs.next()) {
@@ -113,20 +129,11 @@ public class visao extends javax.swing.JFrame {
 
                 dados.add(registroAtual);
             }
-            rs.close();
-            stmt.close();
-            con.close();
         } catch (java.sql.SQLException e) {
             throw new java.lang.RuntimeException(e.getMessage());
         }
 
-        //Fechando a Conexão:
-        try {
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro fechar");
-        }
+        conexao.connection().desconecta();
 
         
         for (int i = 0; i < dados.size(); i++) {
@@ -439,42 +446,42 @@ public class visao extends javax.swing.JFrame {
         jLabel3ImpostoEstadual2.setText("O Imposto ICMS Custará:");
 
         TextFieldResultadoIF.setEditable(false);
-        TextFieldResultadoIF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
+        TextFieldResultadoIF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
         TextFieldResultadoIF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoIF.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoIE.setEditable(false);
-        TextFieldResultadoIE.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
+        TextFieldResultadoIE.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
         TextFieldResultadoIE.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoIE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoIPI.setEditable(false);
-        TextFieldResultadoIPI.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
+        TextFieldResultadoIPI.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
         TextFieldResultadoIPI.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoIPI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoFrete.setEditable(false);
-        TextFieldResultadoFrete.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
+        TextFieldResultadoFrete.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
         TextFieldResultadoFrete.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoFrete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoCustosGerais.setEditable(false);
-        TextFieldResultadoCustosGerais.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
+        TextFieldResultadoCustosGerais.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
         TextFieldResultadoCustosGerais.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoCustosGerais.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoGanhoLivre.setEditable(false);
-        TextFieldResultadoGanhoLivre.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
+        TextFieldResultadoGanhoLivre.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
         TextFieldResultadoGanhoLivre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoGanhoLivre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoICMS.setEditable(false);
-        TextFieldResultadoICMS.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
+        TextFieldResultadoICMS.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
         TextFieldResultadoICMS.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoICMS.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         TextFieldResultadoPrecoVenda.setEditable(false);
-        TextFieldResultadoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        TextFieldResultadoPrecoVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
         TextFieldResultadoPrecoVenda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoPrecoVenda.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
 
@@ -509,7 +516,7 @@ public class visao extends javax.swing.JFrame {
         jLabel23.setText("R$:");
 
         TextFieldResultadoPrecoProduto.setEditable(false);
-        TextFieldResultadoPrecoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###0.00"))));
+        TextFieldResultadoPrecoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#.00"))));
         TextFieldResultadoPrecoProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextFieldResultadoPrecoProduto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -802,14 +809,14 @@ public class visao extends javax.swing.JFrame {
                     .addComponent(jSeparator1)))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel2);
+        jTabbedPane1.addTab("Precificação", jPanel2);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "ICMS", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
+                "codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "OutrosCustos", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -879,7 +886,7 @@ public class visao extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAlterar)
@@ -889,7 +896,7 @@ public class visao extends javax.swing.JFrame {
                 .addContainerGap(183, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel3);
+        jTabbedPane1.addTab("Pesquisar", jPanel3);
 
         botaoCriarCopia.setForeground(new java.awt.Color(66, 107, 215));
         botaoCriarCopia.setText("CRIAR CÓPIA DE SEGURANÇA");
@@ -916,7 +923,7 @@ public class visao extends javax.swing.JFrame {
                 .addContainerGap(591, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab3", jPanel4);
+        jTabbedPane1.addTab("Fazer Backup", jPanel4);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1041,16 +1048,7 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_TextFieldFreteActionPerformed
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
-        //fazer a conexao com o mysql
-        java.sql.Connection con;
-        try {
-            Class.forName("org.gjt.mm.mysql.Driver");
-            con = java.sql.DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/armazenamento", "root", "Moises@125");
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro ao conectar");
-        }
+        conexao.connection().conecta();
 
         String Descricao = this.TextFieldMaterial.getText().replace(",", ".");
         String Preco = this.TextFieldPrecoUnitario.getText().replace(",", ".");
@@ -1065,24 +1063,15 @@ public class visao extends javax.swing.JFrame {
         String comando = "insert into producao ( Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda) "
                 + "values " + "('" + Descricao + "','" + Preco + "','" + ImpostoFederal + "','" + ImpostoEstadual + "', '" + IPI + "', '" + ICMS + "', '" + Frete + "', '" + GanhoLivre + "', '" + CustosGerais + "', '" + PrecoVenda + "')";
 
-        try {
-            java.sql.Statement stmt = con.createStatement();
-            stmt.executeUpdate(comando);
-            stmt.close();
-            con.close();
-        } catch (java.sql.SQLException e) {
-            throw new java.lang.RuntimeException(e.getMessage());
-        }
+        conexao.connection().executeSQLUpdate(comando);
+        
 
         this.carregarTabela();
+        JOptionPane.showMessageDialog(null, "Dados inseridos com SUCESSO");
+        TextFieldMaterial.grabFocus();
+        TextFieldMaterial.selectAll();
 
-//Fechando a Conexão:
-        try {
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new java.lang.RuntimeException("erro fechar");
-        }
+        conexao.connection().desconecta();
 
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
@@ -1098,8 +1087,9 @@ public class visao extends javax.swing.JFrame {
 	TextFieldResultadoICMS.grabFocus();
 	TextFieldResultadoFrete.grabFocus();
 	TextFieldResultadoGanhoLivre.grabFocus();
-        TextFieldGanhoLivre.transferFocus();
-        TextFieldGanhoLivre.selectAll();//apertando enter, transfere foco p/proximo campo
+        jButtonGravar.grabFocus();
+        jButtonGravar.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), evt);
+        jButtonGravar.getActionMap().put("DoClick", null);
     }//GEN-LAST:event_TextFieldGanhoLivreActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed

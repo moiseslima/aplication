@@ -49,7 +49,7 @@ public class conexao
             }
        }
        
-       public ResultSet executeSQL(String sql){
+       public ResultSet executeSQLQuery(String sql){
             try{
                 statement = conexao.createStatement();
                 resultset = statement.executeQuery(sql);  
@@ -57,5 +57,15 @@ public class conexao
                JOptionPane.showMessageDialog(null,"Não foi possível "+
                        "executar o comando sql,"+sqlex+", o sql passado foi "+sql);
             }return resultset;
-       }      
+       }
+        public void executeSQLUpdate(String sql){
+            try{
+                statement = conexao.createStatement();
+                statement.executeUpdate(sql);  
+            }catch(SQLException sqlex){
+               JOptionPane.showMessageDialog(null,"Não foi possível "+
+                       "executar o comando sql,"+sqlex+", o sql passado foi "+sql);
+            }
+       }
+              
 }

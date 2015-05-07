@@ -5,7 +5,11 @@
  */
 package distoleos;
 
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import util.conexao;
 
@@ -14,12 +18,24 @@ import util.conexao;
  * @author Assis Andrade
  */
 public class JanelaPesquisar extends javax.swing.JFrame {
-    String descricao, codigoSQL;
+    String descricao, codigoSQL, codigoTabela;
+    int linhaSelecionada;
     /**
      * Creates new form JanelaPesquisar
      */
     public JanelaPesquisar(String descricaoInformada) {
         initComponents();
+        jTable1.addMouseListener(new MouseAdapter() {
+        public void mousePressed(MouseEvent me) {
+        JTable table =(JTable) me.getSource();
+        Point p = me.getPoint();
+        int row = table.rowAtPoint(p);
+        if (me.getClickCount() == 2) {
+            linhaSelecionada = row;
+            botaoAlterar.doClick();
+        }
+    }
+});
         descricao = descricaoInformada;
         preencheTabela();
     }
@@ -38,7 +54,7 @@ public class JanelaPesquisar extends javax.swing.JFrame {
         Vector<Vector> dados = new Vector<>();
 
         try {
-            java.sql.ResultSet rs = conexao.connection().executeSQL(codigoSQL);
+            java.sql.ResultSet rs = conexao.connection().executeSQLQuery(codigoSQL);
             while (rs.next()) {
                 int codigo = rs.getInt("codigo");
                 String Descricao = rs.getString("Descricao");
@@ -89,6 +105,8 @@ public class JanelaPesquisar extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        botaoFechar = new javax.swing.JButton();
+        botaoAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pesquisa");
@@ -98,7 +116,7 @@ public class JanelaPesquisar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "ICMS", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
+                "codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "OutrosCustos", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -111,25 +129,69 @@ public class JanelaPesquisar extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        botaoFechar.setText("Fechar");
+        botaoFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoFecharActionPerformed(evt);
+            }
+        });
+
+        botaoAlterar.setText("Alterar");
+        botaoAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoFechar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoFechar)
+                    .addComponent(botaoAlterar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
+        dispose();
+    }//GEN-LAST:event_botaoFecharActionPerformed
+
+    private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
+        String Descricao = this.jTable1.getValueAt(linhaSelecionada, 1).toString();
+        String Preco = this.jTable1.getValueAt(linhaSelecionada, 2).toString();
+        String ImpostoFederal = this.jTable1.getValueAt(linhaSelecionada, 3).toString();
+        String ImpostoEstadual = this.jTable1.getValueAt(linhaSelecionada, 4).toString();
+        String IPI = this.jTable1.getValueAt(linhaSelecionada, 5).toString();
+        String ICMS = this.jTable1.getValueAt(linhaSelecionada, 6).toString();
+        String Frete = this.jTable1.getValueAt(linhaSelecionada, 7).toString();
+        String GanhoLivre = this.jTable1.getValueAt(linhaSelecionada, 8).toString();
+        String CustosGerais = this.jTable1.getValueAt(linhaSelecionada, 9).toString();
+        String PrecoVenda = this.jTable1.getValueAt(linhaSelecionada, 10).toString();
+        String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
+        new AlterarTabela(Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda, codigo).setVisible(true);
+        preencheTabela();
+    }//GEN-LAST:event_botaoAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,6 +199,8 @@ public class JanelaPesquisar extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoAlterar;
+    private javax.swing.JButton botaoFechar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
