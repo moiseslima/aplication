@@ -5,6 +5,8 @@
  */
 package distoleos;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import util.conexao;
 
@@ -14,27 +16,77 @@ import util.conexao;
  */
 public class AlterarTabela extends javax.swing.JFrame {
         String codigo;
+        float preco,impostoFederal,impostoEstadual,ipi,icms,frete,ganhoLivre,custosGerais,precoVenda;
+        float impostoFederalPorcentagem,impostoEstadualPorcentagem,ipiPorcentagem,icmsPorcentagem,fretePorcentagem,ganhoLivrePorcentagem;
     /**
      * Creates new form AlterarTabela
      */
     
     public AlterarTabela(String Descricao, String Preco, String ImpostoFederal, String ImpostoEstadual, String IPI, String ICMS, String Frete, String GanhoLivre, String CustosGerais, String PrecoVenda, String codigo) {
+        preco = Float.parseFloat(Preco);
+        impostoFederal = Float.parseFloat(ImpostoFederal);
+        impostoEstadual = Float.parseFloat(ImpostoEstadual);
+        ipi = Float.parseFloat(IPI);
+        icms = Float.parseFloat(ICMS);
+        frete = Float.parseFloat(Frete);
+        ganhoLivre = Float.parseFloat(GanhoLivre);
+        custosGerais = Float.parseFloat(CustosGerais);
+        precoVenda = Float.parseFloat(PrecoVenda);
+        
+        impostoFederalPorcentagem = (impostoFederal * 100) / preco;
+        impostoEstadualPorcentagem = (impostoEstadual * 100) / preco;
+        ipiPorcentagem = (ipi*100) / preco;
+        icmsPorcentagem = (icms*100) / preco;
+        fretePorcentagem = (frete*100) / preco;
+        ganhoLivrePorcentagem = (ganhoLivre*100) / preco;
+        //float custosGeraisPorcentagem = (Float.parseFloat(CustosGerais)*100) / Float.parseFloat(Preco);
         initComponents();
+        botaoAlterar.addKeyListener(new KeyAdapter(){
+          public void keyPressed(KeyEvent e) {
+              if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                  botaoAlterar.doClick();
+              }
+          }
+      });
         this.codigo = codigo;
-        this.jTextField1.setText(Descricao);
-         this.jTextField3.setText(Preco);
-          this.jTextField4.setText(ImpostoFederal);
-           this.jTextField5.setText(ImpostoEstadual);
-           this.jTextField6.setText(IPI);
-            this.jTextField7.setText(ICMS);
-             this.jTextField8.setText(Frete);
-              this.jTextField9.setText(GanhoLivre);
-               this.jTextField10.setText(CustosGerais);
-            this.jTextField11.setText(PrecoVenda);
-            this.codigo = codigo;
-           
+        this.campoDescricao.setText(Descricao);
+        this.campoPrecoUnitario.setText(Preco);
+        this.campoImpostoFederal.setText(String.valueOf(impostoFederalPorcentagem));
+        this.campoImpostoEstadual.setText(String.valueOf(impostoEstadualPorcentagem));
+        this.campoIPI.setText(String.valueOf(ipiPorcentagem));
+        this.campoICMS.setText(String.valueOf(icmsPorcentagem));
+        this.campoFrete.setText(String.valueOf(fretePorcentagem));
+        this.campoGanhoLivre.setText(String.valueOf(ganhoLivrePorcentagem));
+        this.campoCustosGerais.setText((CustosGerais));
+        this.campoPrecoVenda.setText(PrecoVenda);
+        campoDescricao.grabFocus();
+        campoDescricao.selectAll();
     }
 
+    public void recalcularValores(){
+        float ResultadoIPI = (Float.parseFloat(campoIPI.getText()) / 100) * Float.parseFloat(campoPrecoUnitario.getText());
+        campoIPI.setText(String.valueOf(ResultadoIPI));
+
+        float ResultadoFrete = (Float.parseFloat(campoFrete.getText()) / 100) * Float.parseFloat(campoPrecoUnitario.getText());
+        campoFrete.setText(String.valueOf(ResultadoFrete));
+
+        float ResultadoGanhoLivre = (Float.parseFloat(campoGanhoLivre.getText()) / 100) * Float.parseFloat(campoPrecoUnitario.getText());
+        campoGanhoLivre.setText(String.valueOf(ResultadoGanhoLivre));
+
+        float ResultadoIF = (Float.parseFloat(campoImpostoFederal.getText()) / 100) * Float.parseFloat(campoPrecoUnitario.getText());
+        campoImpostoFederal.setText(String.valueOf(ResultadoIF));
+
+        float ResultadoICMS = (Float.parseFloat(campoICMS.getText()) / 100) * Float.parseFloat(campoPrecoUnitario.getText());
+        campoICMS.setText(String.valueOf(ResultadoICMS));
+
+        float ResultadoIE = (Float.parseFloat(campoImpostoEstadual.getText()) / 100) * Float.parseFloat(campoPrecoUnitario.getText());
+        campoImpostoEstadual.setText(String.valueOf(ResultadoIE));
+
+        float Custos = Float.parseFloat(campoPrecoUnitario.getText()) + ResultadoICMS + ResultadoIF + ResultadoIPI + ResultadoIE + ResultadoFrete;
+        float PrecoVenda = Custos + ResultadoGanhoLivre;
+        campoCustosGerais.setText(String.valueOf(Custos));
+        campoPrecoVenda.setText(String.valueOf(PrecoVenda));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,35 +103,34 @@ public class AlterarTabela extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButtonLimparCampos = new javax.swing.JButton();
         jLabel1PrecoUnitario = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1PrecoUnitario1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        botaoAlterar = new javax.swing.JButton();
+        campoDescricao = new javax.swing.JTextField();
+        campoPrecoUnitario = new javax.swing.JTextField();
+        campoImpostoFederal = new javax.swing.JTextField();
+        campoImpostoEstadual = new javax.swing.JTextField();
+        campoIPI = new javax.swing.JTextField();
+        campoICMS = new javax.swing.JTextField();
+        campoFrete = new javax.swing.JTextField();
+        campoGanhoLivre = new javax.swing.JTextField();
+        campoCustosGerais = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        campoPrecoVenda = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Precificação JBvox Óleos - Alterar Tabela");
+        setResizable(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 204, 0));
@@ -87,7 +138,7 @@ public class AlterarTabela extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel10.setText("Digite o percentual do Custos Gerais:");
+        jLabel10.setText("Custos Gerais:");
 
         jLabel12.setText("%");
 
@@ -95,18 +146,11 @@ public class AlterarTabela extends javax.swing.JFrame {
 
         jLabel14.setText("%");
 
-        jLabel15.setText("%");
+        jLabel15.setText("R$");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 204, 0));
         jLabel1.setText("Digite o percentual do Imposto federal:");
-
-        jButtonLimparCampos.setText("Limpar Campos");
-        jButtonLimparCampos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimparCamposActionPerformed(evt);
-            }
-        });
 
         jLabel1PrecoUnitario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1PrecoUnitario.setForeground(new java.awt.Color(0, 204, 0));
@@ -126,8 +170,6 @@ public class AlterarTabela extends javax.swing.JFrame {
 
         jLabel6.setText("%");
 
-        jLabel11.setText("R$:");
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 204, 0));
         jLabel5.setText("Digite o percentual do Frete:");
@@ -145,49 +187,81 @@ public class AlterarTabela extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(102, 255, 255));
         jTextField2.setText("                                        Alterar Tabela");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+
+        botaoAlterar.setText("Alterar");
+        botaoAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                botaoAlterarActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Alterar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        campoDescricao.setText("jTextField1");
+        campoDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                campoDescricaoActionPerformed(evt);
             }
         });
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        campoPrecoUnitario.setText("jTextField3");
+        campoPrecoUnitario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                campoPrecoUnitarioActionPerformed(evt);
             }
         });
 
-        jTextField3.setText("jTextField3");
+        campoImpostoFederal.setText("jTextField4");
+        campoImpostoFederal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoImpostoFederalActionPerformed(evt);
+            }
+        });
 
-        jTextField4.setText("jTextField4");
+        campoImpostoEstadual.setText("jTextField5");
+        campoImpostoEstadual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoImpostoEstadualActionPerformed(evt);
+            }
+        });
 
-        jTextField5.setText("jTextField5");
+        campoIPI.setText("jTextField6");
+        campoIPI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoIPIActionPerformed(evt);
+            }
+        });
 
-        jTextField6.setText("jTextField6");
+        campoICMS.setText("jTextField7");
+        campoICMS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoICMSActionPerformed(evt);
+            }
+        });
 
-        jTextField7.setText("jTextField7");
+        campoFrete.setText("jTextField8");
+        campoFrete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoFreteActionPerformed(evt);
+            }
+        });
 
-        jTextField8.setText("jTextField8");
+        campoGanhoLivre.setText("jTextField9");
+        campoGanhoLivre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoGanhoLivreActionPerformed(evt);
+            }
+        });
 
-        jTextField9.setText("jTextField9");
+        campoCustosGerais.setEditable(false);
+        campoCustosGerais.setText("jTextField10");
 
-        jTextField10.setText("jTextField10");
-
-        jLabel16.setText("%");
+        jLabel16.setText("R$");
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel17.setText("Altere o preço de Venda do produto:");
+        jLabel17.setText("Preço de Venda:");
 
-        jTextField11.setText("jTextField11");
+        campoPrecoVenda.setEditable(false);
+        campoPrecoVenda.setText("jTextField11");
 
         jLabel18.setText("R$:");
 
@@ -195,12 +269,15 @@ public class AlterarTabela extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 19, Short.MAX_VALUE)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
@@ -212,48 +289,38 @@ public class AlterarTabela extends javax.swing.JFrame {
                                         .addComponent(jLabel2))
                                     .addComponent(jLabel1PrecoUnitario)
                                     .addComponent(jLabel17))
-                                .addGap(17, 17, 17))
+                                .addGap(196, 196, 196))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1PrecoUnitario1)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jButtonLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(97, 97, 97)))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(botaoAlterar)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel18)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                    .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel1PrecoUnitario1)
+                                        .addGap(19, 19, 19)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel15)
+                                            .addComponent(jLabel18)
+                                            .addComponent(jLabel16))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(campoPrecoVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                            .addComponent(campoCustosGerais, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(campoGanhoLivre, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(campoFrete, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(campoICMS, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(campoIPI, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(campoImpostoEstadual, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(campoDescricao)
+                                            .addComponent(campoPrecoUnitario)
+                                            .addComponent(campoImpostoFederal, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel16)))))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,109 +330,87 @@ public class AlterarTabela extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
                             .addComponent(jLabel1PrecoUnitario1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campoDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1PrecoUnitario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoPrecoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoImpostoFederal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoImpostoEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoIPI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addGap(116, 116, 116))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(211, 211, 211)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoICMS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoFrete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campoGanhoLivre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoCustosGerais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(13, 13, 13)
+                .addComponent(botaoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparCamposActionPerformed
-        /*jTextField3PrecoUnitario.setText("");
-        jTextField4ImpostoFederal.setText("");
-        jTextField5ImpostoEstadual.setText("");
-        jTextField6Frete.setText("");
-        jTextField7CustosGerais.setText("");
-        jTextField8GanhoLivre.setText("");
-        jTextField9RseultadoImpostoFederal.setText("");
-        jTextField10ResultadoFrete.setText("");
-        jTextField11ResultadoImpostoEstadual.setText("");
-        jTextField12ResultadoCustosGerais.setText("");
-        jTextField13ResultadoGanhoLivre.setText("");
-        jTextField14ResultadoPrecoVenda.setText(""); //limpa o resultado também
+    private void campoDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoDescricaoActionPerformed
+        campoPrecoUnitario.grabFocus();
+        campoPrecoUnitario.selectAll();
+    }//GEN-LAST:event_campoDescricaoActionPerformed
 
-        jTextField3PrecoUnitario.grabFocus(); //foca o campo preco unitario
-        */
-    }//GEN-LAST:event_jButtonLimparCamposActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
       
+        recalcularValores();
         conexao.connection().conecta();
         
      // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda) 
         
         String comando = "UPDATE producao SET " 
-          + "Descricao = '" + this.jTextField1.getText() + "'," 
-          + "Preco = '" + this.jTextField3.getText() + "'," 
-          +      "ImpostoFederal = '" + this.jTextField4.getText() + "'," 
-          +      "ImpostoEstadual = '" + this.jTextField5.getText() + "'," 
-          +      "IPI = '" + this.jTextField6.getText() + "'," 
-          +      "ICMS = '" + this.jTextField7.getText() + "'," 
-          +      "Frete = '" + this.jTextField8.getText() + "'," 
-          +      "GanhoLivre = '" + this.jTextField9.getText() + "'," 
-          +       "CustosGerais = '" + this.jTextField10.getText() + "'," 
-          +       "PrecoVenda = '" + this.jTextField11.getText() + "'" 
+          + "Descricao = '" + this.campoDescricao.getText() + "'," 
+          + "Preco = '" + this.campoPrecoUnitario.getText() + "'," 
+          +      "ImpostoFederal = '" + this.campoImpostoFederal.getText() + "'," 
+          +      "ImpostoEstadual = '" + this.campoImpostoEstadual.getText() + "'," 
+          +      "IPI = '" + this.campoIPI.getText() + "'," 
+          +      "ICMS = '" + this.campoICMS.getText() + "'," 
+          +      "Frete = '" + this.campoFrete.getText() + "'," 
+          +      "GanhoLivre = '" + this.campoGanhoLivre.getText() + "'," 
+          +       "CustosGerais = '" + this.campoCustosGerais.getText() + "'," 
+          +       "PrecoVenda = '" + this.campoPrecoVenda.getText() + "'" 
           +      "WHERE(codigo) = '" +  this.codigo + "'";
         
         
@@ -375,9 +420,43 @@ public class AlterarTabela extends javax.swing.JFrame {
         conexao.connection().desconecta();
 
         DistOleos.getSharedApplication().carregarTabela();
-        JOptionPane.showMessageDialog(this, "Dados atualizados com SUCESSO", jTextField1.getText(), JOptionPane.INFORMATION_MESSAGE, null);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        JOptionPane.showMessageDialog(this, "Dados atualizados com SUCESSO", campoDescricao.getText(), JOptionPane.INFORMATION_MESSAGE, null);
+    }//GEN-LAST:event_botaoAlterarActionPerformed
+
+    private void campoPrecoUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPrecoUnitarioActionPerformed
+        campoImpostoFederal.grabFocus();
+        campoImpostoFederal.selectAll();// TODO add your handling code here:
+    }//GEN-LAST:event_campoPrecoUnitarioActionPerformed
+
+    private void campoImpostoFederalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoImpostoFederalActionPerformed
+        campoImpostoEstadual.grabFocus();
+        campoImpostoEstadual.selectAll();// TODO add your handling code here:
+    }//GEN-LAST:event_campoImpostoFederalActionPerformed
+
+    private void campoImpostoEstadualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoImpostoEstadualActionPerformed
+        campoIPI.grabFocus();
+        campoIPI.selectAll();// TODO add your handling code here:
+    }//GEN-LAST:event_campoImpostoEstadualActionPerformed
+
+    private void campoIPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIPIActionPerformed
+        campoICMS.grabFocus();
+        campoICMS.selectAll();// TODO add your handling code here:
+    }//GEN-LAST:event_campoIPIActionPerformed
+
+    private void campoICMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoICMSActionPerformed
+        campoFrete.grabFocus();
+        campoFrete.selectAll();// TODO add your handling code here:
+    }//GEN-LAST:event_campoICMSActionPerformed
+
+    private void campoFreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoFreteActionPerformed
+        campoGanhoLivre.grabFocus();
+        campoGanhoLivre.selectAll();// TODO add your handling code here:
+    }//GEN-LAST:event_campoFreteActionPerformed
+
+    private void campoGanhoLivreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoGanhoLivreActionPerformed
+        botaoAlterar.grabFocus();// TODO add your handling code here:
+    }//GEN-LAST:event_campoGanhoLivreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,11 +494,19 @@ public class AlterarTabela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonLimparCampos;
+    private javax.swing.JButton botaoAlterar;
+    private javax.swing.JTextField campoCustosGerais;
+    private javax.swing.JTextField campoDescricao;
+    private javax.swing.JTextField campoFrete;
+    private javax.swing.JTextField campoGanhoLivre;
+    private javax.swing.JTextField campoICMS;
+    private javax.swing.JTextField campoIPI;
+    private javax.swing.JTextField campoImpostoEstadual;
+    private javax.swing.JTextField campoImpostoFederal;
+    private javax.swing.JTextField campoPrecoUnitario;
+    private javax.swing.JTextField campoPrecoVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -437,16 +524,6 @@ public class AlterarTabela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }
