@@ -67,6 +67,7 @@ public class JanelaPesquisar extends javax.swing.JFrame {
                 String GanhoLivre = rs.getString("GanhoLivre");
                 String CustosGerais = rs.getString("CustosGerais");
                 String PrecoVenda = rs.getString("PrecoVenda");
+                String Categoria = rs.getString("Categoria");
 
                 Vector registroAtual = new Vector();
                 registroAtual.add(codigo);
@@ -80,6 +81,7 @@ public class JanelaPesquisar extends javax.swing.JFrame {
                 registroAtual.add(GanhoLivre);
                 registroAtual.add(CustosGerais);
                 registroAtual.add(PrecoVenda);
+                 registroAtual.add(Categoria);
 
                 dados.add(registroAtual);
             }
@@ -116,11 +118,11 @@ public class JanelaPesquisar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "OutrosCustos", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda"
+                "Codigo", "Descricao", "Preco", "ImpostoFederal", "IPI", "ImpostoEstadual", "OutrosCustos", "Frete", "GanhoLivre", "CustosGerais", "PrecoVenda", "categoria"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -182,6 +184,7 @@ public class JanelaPesquisar extends javax.swing.JFrame {
 
     private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
         linhaSelecionada = this.jTable1.getSelectedRow();
+         String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
         String Descricao = this.jTable1.getValueAt(linhaSelecionada, 1).toString();
         String Preco = this.jTable1.getValueAt(linhaSelecionada, 2).toString();
         String ImpostoFederal = this.jTable1.getValueAt(linhaSelecionada, 3).toString();
@@ -191,8 +194,10 @@ public class JanelaPesquisar extends javax.swing.JFrame {
         String Frete = this.jTable1.getValueAt(linhaSelecionada, 7).toString();
         String GanhoLivre = this.jTable1.getValueAt(linhaSelecionada, 8).toString();
         String CustosGerais = this.jTable1.getValueAt(linhaSelecionada, 9).toString();
-        String PrecoVenda = this.jTable1.getValueAt(linhaSelecionada, 10).toString();
-        String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
+        String PrecoVenda = this.jTable1.getValueAt(linhaSelecionada, 10).toString();       
+        String categoria = this.jTable1.getValueAt(linhaSelecionada, 11).toString();
+        
+        
         new AlterarTabela(Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda, codigo).setVisible(true);
         preencheTabela();
     }//GEN-LAST:event_botaoAlterarActionPerformed

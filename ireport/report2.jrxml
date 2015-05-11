@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c71148f1-20d9-4420-b5af-39320f6b2748">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     producao.`codigo` AS producao_codigo,
+     producao.`Descricao` AS producao_Descricao,
+     producao.`Preco` AS producao_Preco,
+     producao.`ImpostoFederal` AS producao_ImpostoFederal,
+     producao.`ImpostoEstadual` AS producao_ImpostoEstadual,
+     producao.`IPI` AS producao_IPI,
+     producao.`ICMS` AS producao_ICMS,
+     producao.`Frete` AS producao_Frete,
+     producao.`GanhoLivre` AS producao_GanhoLivre,
+     producao.`CustosGerais` AS producao_CustosGerais,
+     producao.`PrecoVenda` AS producao_PrecoVenda
+FROM
+     `producao` producao]]>
+	</queryString>
+	<field name="producao_codigo" class="java.lang.Integer"/>
+	<field name="producao_Descricao" class="java.lang.String"/>
+	<field name="producao_Preco" class="java.lang.Float"/>
+	<field name="producao_ImpostoFederal" class="java.lang.Float"/>
+	<field name="producao_ImpostoEstadual" class="java.lang.Float"/>
+	<field name="producao_IPI" class="java.lang.Float"/>
+	<field name="producao_ICMS" class="java.lang.Float"/>
+	<field name="producao_Frete" class="java.lang.Float"/>
+	<field name="producao_GanhoLivre" class="java.lang.Float"/>
+	<field name="producao_CustosGerais" class="java.lang.Float"/>
+	<field name="producao_PrecoVenda" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<image>
+				<reportElement uuid="1452dfca-783c-4127-8f4d-7d5474ef873e" x="725" y="0" width="77" height="102"/>
+				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement uuid="67091628-95b8-4428-993d-bd832331043d" mode="Opaque" x="0" y="0" width="721" height="66" backcolor="#000000"/>
+				<staticText>
+					<reportElement uuid="4c633eda-85d9-4e4f-b5de-340723faebcf" style="Title" x="0" y="0" width="397" height="66"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement verticalAlignment="Bottom">
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Relatório JBVOX]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e5d305ea-7a0c-4b0a-8e78-ffcb5c8f6cc0" style="SubTitle" x="397" y="37" width="289" height="29"/>
+					<textElement textAlignment="Right">
+						<font size="22" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tabela Completa]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="cb3807aa-3330-47de-8a3b-97561b1b5a47" mode="Opaque" x="0" y="70" width="721" height="32" forecolor="#000000" backcolor="#CC0000"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="8609f2c5-50b5-43d1-a2d2-e12684b4993c" x="553" y="12" width="144" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="96a6b88e-1ff0-4ad3-a92e-737eec51e63d" style="Column header" x="0" y="0" width="58" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a42dd48b-d503-4c7b-8f49-bab0bcaca005" style="Column header" x="58" y="0" width="72" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Descricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a27ffcfa-7887-485f-b5a0-fb5a70a533d0" style="Column header" x="130" y="0" width="57" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Preco]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fd93b348-3457-4f07-9d7a-0ac2c00c5e64" style="Column header" x="187" y="0" width="101" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[ImpostoFederal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="441358c5-0e12-469a-9148-35249ac09103" style="Column header" x="288" y="0" width="109" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[ImpostoEstadual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fac158ce-5fda-4a78-b0c9-c51348e8932a" style="Column header" x="397" y="0" width="52" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[IPI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ee873146-bcab-4ae9-ab0e-ad02d2fdf99b" style="Column header" x="449" y="0" width="55" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[ICMS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="33abd02a-2d01-4833-81e3-5e140d9788a7" style="Column header" x="504" y="0" width="51" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Frete]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0d4ad7d3-60dc-47aa-8a56-e96bb87b1f46" style="Column header" x="555" y="0" width="72" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[GanhoLivre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a0782b01-dbea-4c11-b828-2b56e896e0eb" style="Column header" x="627" y="0" width="81" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[CustosGerais]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ccef8969-e2ef-42e4-a286-c3ccffffcb7a" style="Column header" x="708" y="0" width="94" height="18" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Preco de Venda]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement uuid="78991f05-6f3f-4268-a0bd-13bbe054a423" style="Row" mode="Opaque" x="0" y="0" width="797" height="18"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="57b89039-5627-4fcc-8527-59f4416c20d2" style="Detail" positionType="Float" x="0" y="0" width="58" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_codigo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="79756a55-bf3d-4df3-abc9-a8fcba2e8dbf" style="Detail" positionType="Float" x="58" y="0" width="72" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_Descricao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="f57fad25-b603-4594-9b72-b9a1d734073a" style="Detail" positionType="Float" x="144" y="0" width="43" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_Preco}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="dfa70302-b635-4230-8342-98457a67295e" style="Detail" positionType="Float" x="187" y="0" width="101" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_ImpostoFederal}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="6405caa1-7862-4421-b249-860f8c9a2a72" style="Detail" positionType="Float" x="288" y="0" width="109" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_ImpostoEstadual}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="3a903071-4195-4dd7-b34f-062880e39075" style="Detail" positionType="Float" x="397" y="0" width="52" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_IPI}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="c6bd91eb-188d-4ddf-9a3e-29dbb0042792" style="Detail" positionType="Float" x="449" y="0" width="55" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_ICMS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="29560e9f-a49d-4b80-8c4a-5e3ecf86696e" style="Detail" positionType="Float" x="504" y="0" width="51" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_Frete}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="6c7b08f3-dc3e-4ec2-8f49-da734ff3cb30" style="Detail" positionType="Float" x="555" y="0" width="72" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_GanhoLivre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="29bd417a-e3e3-4b21-93de-c30fe20e0da5" style="Detail" positionType="Float" x="627" y="0" width="81" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_CustosGerais}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="aba735aa-26e9-42a0-b8d0-db361534ae77" style="Detail" positionType="Float" x="708" y="0" width="89" height="18"/>
+					<textElement>
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{producao_PrecoVenda}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement uuid="ebd726e0-df39-4205-88fe-0135a4d21c03" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="3afcc1fe-09cc-4a0b-9014-de1f1c6bb734" mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000000"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="0adf9ce1-356a-4e57-ac65-8497889d5421" style="Column header" x="757" y="3" width="40" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="ad825330-9796-40b5-9a41-863d729f4102" style="Column header" x="677" y="3" width="80" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="d44a0757-1844-4258-8c70-bb72e136d869" style="Column header" x="2" y="3" width="197" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
