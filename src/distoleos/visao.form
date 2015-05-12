@@ -2,29 +2,6 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.persistence.EntityManager" name="armazenamentoPUEntityManager">
-      <Properties>
-        <Property name="persistenceUnit" type="java.lang.String" value="armazenamentoPU"/>
-      </Properties>
-    </Component>
-    <Component class="javax.persistence.Query" name="producaoQuery">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT p FROM Producao p"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="armazenamentoPUEntityManager"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="producaoList">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="producaoQuery"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;distoleos.Producao&gt;"/>
-      </AuxValues>
-    </Component>
     <Container class="javax.swing.JMenu" name="jMenu1">
       <Properties>
         <Property name="text" type="java.lang.String" value="jMenu1"/>
@@ -51,38 +28,59 @@
             <Property name="text" type="java.lang.String" value="Arquivos"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="menuPrecificacao">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Precifica&#xe7;&#xe3;o"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuPrecificacaoActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="menuPesquisa">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F2"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Pesquisa/  tabela de cadastros"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuPesquisaActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+            <MenuItem class="javax.swing.JMenuItem" name="menuBackup">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F3"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Backup de Tabela"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem6ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBackupActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+            <MenuItem class="javax.swing.JMenuItem" name="menuCadCategoria">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F4"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Categorias"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuCadCategoriaActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator4">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="menuSair">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSairActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -187,9 +185,9 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                                                   <Component id="jButtonLimparCampos" min="-2" pref="180" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                                                   <Component id="jButtonGravar" min="-2" pref="180" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
@@ -253,81 +251,76 @@
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
+                                          <EmptySpace pref="29" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jSeparator1" min="-2" pref="14" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="TextFieldResultadoMaterial" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jTextField3" alignment="0" pref="574" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Component id="jLabel3ImpostoEstadual1" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel3ImpostoEstadual3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel2ImpostoFederal" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel3ImpostoEstadual" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                                              <Component id="jLabel4Frete" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jLabel3ImpostoEstadual2" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jLabel6GanhoLivre" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                          <Component id="TextFieldResultadoMaterial" alignment="0" max="32767" attributes="0"/>
+                                                          <Component id="jTextField3" alignment="0" pref="574" max="32767" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="102" alignment="1" attributes="0">
+                                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                                  <Component id="jLabel3ImpostoEstadual1" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel3ImpostoEstadual3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel2ImpostoFederal" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel3ImpostoEstadual" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                                                      <Component id="jLabel4Frete" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jLabel3ImpostoEstadual2" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="jLabel6GanhoLivre" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                              </Group>
+                                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                                  <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                                  <Component id="TextFieldResultadoFrete" alignment="0" max="32767" attributes="0"/>
+                                                                  <Component id="TextFieldResultadoICMS" alignment="0" max="32767" attributes="0"/>
+                                                                  <Component id="TextFieldResultadoIE" alignment="0" max="32767" attributes="0"/>
+                                                                  <Component id="TextFieldResultadoPrecoProduto" alignment="0" max="32767" attributes="0"/>
+                                                                  <Component id="TextFieldResultadoIF" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                                                                  <Component id="TextFieldResultadoIPI" alignment="0" max="32767" attributes="0"/>
+                                                                  <Component id="TextFieldResultadoGanhoLivre" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                          <Group type="102" alignment="1" attributes="0">
+                                                              <Component id="jLabel5CustosGerais" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                              <Component id="jLabel19" min="-2" pref="24" max="-2" attributes="0"/>
+                                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                              <Component id="TextFieldResultadoCustosGerais" min="-2" pref="130" max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
-                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                          <Component id="TextFieldResultadoFrete" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="TextFieldResultadoICMS" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="TextFieldResultadoIE" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="TextFieldResultadoPrecoProduto" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="TextFieldResultadoIF" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                                                          <Component id="TextFieldResultadoIPI" alignment="0" max="32767" attributes="0"/>
-                                                          <Component id="TextFieldResultadoGanhoLivre" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="102" alignment="1" attributes="0">
-                                                      <Component id="jLabel5CustosGerais" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="jLabel19" min="-2" pref="24" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                          <Component id="TextFieldResultadoCustosGerais" max="32767" attributes="0"/>
-                                                          <Component id="TextFieldCB" pref="130" max="32767" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                                                      <Component id="jLabel5CustosGerais2" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="TextFieldResultadoPrecoVenda" alignment="0" min="-2" pref="574" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
                                                   <Component id="jLabel7PrecodeVenda1" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="TextFieldResultadoPrecoVenda" min="-2" pref="574" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -395,12 +388,12 @@
                                       <Component id="TextFieldGanhoLivre" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButtonLimparCampos" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                                       <Component id="jButtonGravar" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                                      <Component id="jButtonLimparCampos" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -464,15 +457,11 @@
                                               <Component id="TextFieldResultadoCustosGerais" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                               <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="TextFieldCB" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                              <Component id="jLabel5CustosGerais2" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="jLabel7PrecodeVenda1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="TextFieldResultadoPrecoVenda" min="-2" pref="72" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jSeparator1" min="-2" pref="628" max="-2" attributes="0"/>
                                   </Group>
@@ -570,27 +559,27 @@
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="TextFieldPrecoUnitario">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldPrecoUnitarioActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TextFieldPrecoUnitarioKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="TextFieldImpostoFederal">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldImpostoFederalActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TextFieldImpostoFederalKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="TextFieldImpostoEstadual">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldImpostoEstadualActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TextFieldImpostoEstadualKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="TextFieldIPI">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldIPIActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TextFieldIPIKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="TextFieldFrete">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldFreteActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TextFieldFreteKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
@@ -626,7 +615,7 @@
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="TextFieldGanhoLivre">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldGanhoLivreActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TextFieldGanhoLivreKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
@@ -952,12 +941,12 @@
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="TextFieldMaterial">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldMaterialActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TextFieldMaterialKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="TextFieldICMS">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextFieldICMSActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TextFieldICMSKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField3">
@@ -1012,7 +1001,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CBCategoriaActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CBCategoriaKeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel10">
@@ -1024,28 +1013,6 @@
                       <Color blue="0" green="cc" red="0" type="rgb"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Escolha a categoria do Produto:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JFormattedTextField" name="TextFieldCB">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="f0" green="f0" red="f0" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="14" style="1"/>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel5CustosGerais2">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="18" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="O produto pertence a categoria:"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1266,8 +1233,8 @@
             <Container class="javax.swing.JPanel" name="jPanel5">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="tab4">
-                    <Property name="tabTitle" type="java.lang.String" value="tab4"/>
+                  <JTabbedPaneConstraints tabName="Cadastro de Categoria">
+                    <Property name="tabTitle" type="java.lang.String" value="Cadastro de Categoria"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -1295,10 +1262,10 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="TextFieldCadastro" alignment="0" min="-2" pref="276" max="-2" attributes="0"/>
+                                              <Component id="campoCadCategoria" alignment="0" min="-2" pref="276" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                                                  <Component id="jButton2" min="-2" pref="137" max="-2" attributes="0"/>
+                                                  <Component id="botaoCadCategoria" min="-2" pref="137" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -1323,9 +1290,9 @@
                                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                                   <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                                  <Component id="TextFieldCadastro" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Component id="campoCadCategoria" min="-2" pref="20" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="jButton2" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="botaoCadCategoria" min="-2" pref="37" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
@@ -1357,7 +1324,10 @@
                     <Property name="text" type="java.lang.String" value="Cadastro de Categorias:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="TextFieldCadastro">
+                <Component class="javax.swing.JTextField" name="campoCadCategoria">
+                  <Events>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="campoCadCategoriaKeyPressed"/>
+                  </Events>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane2">
                   <AuxValues>
@@ -1403,12 +1373,12 @@
                     <Property name="text" type="java.lang.String" value="Digite o nome da categoria que deseja Cadastrar:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton2">
+                <Component class="javax.swing.JButton" name="botaoCadCategoria">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cadastrar"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadCategoriaActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton3">

@@ -23,10 +23,11 @@ import util.conexao;
  */
 public class visao extends javax.swing.JFrame {
 
-    double Categoria, Custos, Soma, PrecoUnitario, ImpostoFederal, ImpostoEstadual, IPI, ICMS, GanhoLivre, CustosGerais, Frete, PrecoVenda;
+    double Custos, Soma, PrecoUnitario, ImpostoFederal, ImpostoEstadual, IPI, ICMS, GanhoLivre, CustosGerais, Frete, PrecoVenda;
     String Material;
      String codigo;
     int linhaSelecionada;
+    boolean precificacaoPendente;
     /**
      * Creates new form visao
      */
@@ -86,13 +87,13 @@ public class visao extends javax.swing.JFrame {
         this.carregarTabela();
         this.carregarTabela2();
         experiencia();
+        CBCategoria.grabFocus();
     }
 //Classe Adicionar
 
     
     
     public void atualizaResultados(){
-        TextFieldCB.grabFocus();
         TextFieldResultadoPrecoProduto.grabFocus();
 	TextFieldResultadoIF.grabFocus();
 	TextFieldResultadoIE.grabFocus();
@@ -105,9 +106,12 @@ public class visao extends javax.swing.JFrame {
     }
     
     public void experiencia(){
+
+           CBCategoria.removeAllItems();
+
         conexao.connection().conecta();
 
-        Vector<Vector> dados = new Vector<Vector>();
+        
 
         String comando = "select * from categoria";
 
@@ -115,15 +119,9 @@ public class visao extends javax.swing.JFrame {
             java.sql.ResultSet rs = conexao.connection().executeSQLQuery(comando);
 
             // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda)    
-            while (rs.next()) {
+            while (rs != null && rs.next()) {
                String CadastroCategoria = rs.getString("CadastroCategoria");
                CBCategoria.addItem(CadastroCategoria);
-
-                Vector registroAtual = new Vector();
-                
-                registroAtual.add(CadastroCategoria);
-
-                dados.add(registroAtual);
             }
         } catch (java.sql.SQLException e) {
             throw new java.lang.RuntimeException(e.getMessage());
@@ -131,8 +129,6 @@ public class visao extends javax.swing.JFrame {
         
         
         conexao.connection().desconecta();
-        
-        jTable2.revalidate();
         
     }
     
@@ -329,9 +325,6 @@ public class visao extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        armazenamentoPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("armazenamentoPU").createEntityManager();
-        producaoQuery = java.beans.Beans.isDesignTime() ? null : armazenamentoPUEntityManager.createQuery("SELECT p FROM Producao p");
-        producaoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : producaoQuery.getResultList();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -396,8 +389,6 @@ public class visao extends javax.swing.JFrame {
         TextFieldResultadoMaterial = new javax.swing.JTextField();
         CBCategoria = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
-        TextFieldCB = new javax.swing.JFormattedTextField();
-        jLabel5CustosGerais2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -409,21 +400,21 @@ public class visao extends javax.swing.JFrame {
         botaoCriarCopia = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        TextFieldCadastro = new javax.swing.JTextField();
+        campoCadCategoria = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel24 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        botaoCadCategoria = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        menuPrecificacao = new javax.swing.JMenuItem();
+        menuPesquisa = new javax.swing.JMenuItem();
+        menuBackup = new javax.swing.JMenuItem();
+        menuCadCategoria = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuSair = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         jMenu1.setText("jMenu1");
@@ -473,33 +464,33 @@ public class visao extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 204, 0));
         jLabel5.setText("Digite o percentual do Frete:");
 
-        TextFieldPrecoUnitario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldPrecoUnitarioActionPerformed(evt);
+        TextFieldPrecoUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TextFieldPrecoUnitarioKeyPressed(evt);
             }
         });
 
-        TextFieldImpostoFederal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldImpostoFederalActionPerformed(evt);
+        TextFieldImpostoFederal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TextFieldImpostoFederalKeyPressed(evt);
             }
         });
 
-        TextFieldImpostoEstadual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldImpostoEstadualActionPerformed(evt);
+        TextFieldImpostoEstadual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TextFieldImpostoEstadualKeyPressed(evt);
             }
         });
 
-        TextFieldIPI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldIPIActionPerformed(evt);
+        TextFieldIPI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TextFieldIPIKeyPressed(evt);
             }
         });
 
-        TextFieldFrete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldFreteActionPerformed(evt);
+        TextFieldFrete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TextFieldFreteKeyPressed(evt);
             }
         });
 
@@ -515,9 +506,9 @@ public class visao extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(0, 204, 0));
         jLabel9.setText("Digite o percentual do Ganho Livre:");
 
-        TextFieldGanhoLivre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldGanhoLivreActionPerformed(evt);
+        TextFieldGanhoLivre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TextFieldGanhoLivreKeyPressed(evt);
             }
         });
 
@@ -653,15 +644,15 @@ public class visao extends javax.swing.JFrame {
             }
         });
 
-        TextFieldMaterial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldMaterialActionPerformed(evt);
+        TextFieldMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TextFieldMaterialKeyPressed(evt);
             }
         });
 
-        TextFieldICMS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldICMSActionPerformed(evt);
+        TextFieldICMS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TextFieldICMSKeyPressed(evt);
             }
         });
 
@@ -691,23 +682,15 @@ public class visao extends javax.swing.JFrame {
         TextFieldResultadoMaterial.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         TextFieldResultadoMaterial.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        CBCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CBCategoriaActionPerformed(evt);
+        CBCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CBCategoriaKeyPressed(evt);
             }
         });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 204, 0));
         jLabel10.setText("Escolha a categoria do Produto:");
-
-        TextFieldCB.setEditable(false);
-        TextFieldCB.setBackground(new java.awt.Color(240, 240, 240));
-        TextFieldCB.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-
-        jLabel5CustosGerais2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5CustosGerais2.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel5CustosGerais2.setText("O produto pertence a categoria:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -727,9 +710,9 @@ public class visao extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(101, 101, 101)
+                                        .addGap(99, 99, 99)
                                         .addComponent(jButtonLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(79, 79, 79)
+                                        .addGap(76, 76, 76)
                                         .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(26, 26, 26)
@@ -776,63 +759,59 @@ public class visao extends javax.swing.JFrame {
                                                         .addComponent(jLabel6)
                                                         .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(TextFieldResultadoMaterial, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel3ImpostoEstadual1)
-                                                .addComponent(jLabel3ImpostoEstadual3)
-                                                .addComponent(jLabel2ImpostoFederal)
-                                                .addComponent(jLabel3ImpostoEstadual)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel4Frete)
-                                                    .addComponent(jLabel3ImpostoEstadual2)
-                                                    .addComponent(jLabel6GanhoLivre, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                            .addGap(18, 18, 18)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(TextFieldResultadoFrete, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(TextFieldResultadoICMS, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(TextFieldResultadoIE, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(TextFieldResultadoPrecoProduto, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(TextFieldResultadoIF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(TextFieldResultadoIPI, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(TextFieldResultadoGanhoLivre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel5CustosGerais)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(TextFieldResultadoCustosGerais)
-                                                .addComponent(TextFieldCB, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addGap(73, 73, 73)
-                                            .addComponent(jLabel5CustosGerais2)))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TextFieldResultadoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(151, 151, 151)
-                                        .addComponent(jLabel7PrecodeVenda1)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(TextFieldResultadoMaterial, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(jLabel3ImpostoEstadual1)
+                                                        .addComponent(jLabel3ImpostoEstadual3)
+                                                        .addComponent(jLabel2ImpostoFederal)
+                                                        .addComponent(jLabel3ImpostoEstadual)
+                                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(jLabel4Frete)
+                                                            .addComponent(jLabel3ImpostoEstadual2)
+                                                            .addComponent(jLabel6GanhoLivre, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                                    .addGap(18, 18, 18)
+                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING))
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                        .addComponent(TextFieldResultadoFrete, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(TextFieldResultadoICMS, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(TextFieldResultadoIE, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(TextFieldResultadoPrecoProduto, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(TextFieldResultadoIF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(TextFieldResultadoIPI, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(TextFieldResultadoGanhoLivre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                    .addComponent(jLabel5CustosGerais)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(TextFieldResultadoCustosGerais, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(169, 169, 169)
+                                        .addComponent(jLabel7PrecodeVenda1)))
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TextFieldResultadoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -887,11 +866,11 @@ public class visao extends javax.swing.JFrame {
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(TextFieldGanhoLivre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14))
-                        .addGap(48, 48, 48)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(51, 51, 51))
+                            .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(81, 81, 81))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -943,14 +922,11 @@ public class visao extends javax.swing.JFrame {
                                     .addComponent(jLabel5CustosGerais, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TextFieldResultadoCustosGerais, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel19))
-                                .addGap(20, 20, 20)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(TextFieldCB, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5CustosGerais2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(17, 17, 17)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel7PrecodeVenda1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TextFieldResultadoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(TextFieldResultadoPrecoVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -1077,6 +1053,12 @@ public class visao extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 204, 51));
         jLabel15.setText("Cadastro de Categorias:");
 
+        campoCadCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                campoCadCategoriaKeyPressed(evt);
+            }
+        });
+
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -1093,10 +1075,10 @@ public class visao extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel24.setText("Digite o nome da categoria que deseja Cadastrar:");
 
-        jButton2.setText("Cadastrar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botaoCadCategoria.setText("Cadastrar");
+        botaoCadCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botaoCadCategoriaActionPerformed(evt);
             }
         });
 
@@ -1130,10 +1112,10 @@ public class visao extends javax.swing.JFrame {
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(80, 80, 80)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TextFieldCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campoCadCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addGap(71, 71, 71)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(botaoCadCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
@@ -1150,9 +1132,9 @@ public class visao extends javax.swing.JFrame {
                         .addGap(64, 64, 64)
                         .addComponent(jLabel24)
                         .addGap(57, 57, 57)
-                        .addComponent(TextFieldCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campoCadCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botaoCadCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1163,7 +1145,7 @@ public class visao extends javax.swing.JFrame {
                 .addContainerGap(149, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab4", jPanel5);
+        jTabbedPane1.addTab("Cadastro de Categoria", jPanel5);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1181,31 +1163,50 @@ public class visao extends javax.swing.JFrame {
 
         jMenu4.setText("Arquivos");
 
-        jMenuItem2.setText("Precificação");
-        jMenu4.add(jMenuItem2);
-
-        jMenuItem3.setText("Pesquisa/  tabela de cadastros");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuPrecificacao.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        menuPrecificacao.setText("Precificação");
+        menuPrecificacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuPrecificacaoActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem3);
+        jMenu4.add(menuPrecificacao);
 
-        jMenuItem6.setText("Backup de Tabela");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        menuPesquisa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        menuPesquisa.setText("Pesquisa/  tabela de cadastros");
+        menuPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                menuPesquisaActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem6);
+        jMenu4.add(menuPesquisa);
 
-        jMenuItem7.setText("Cadastro de Categorias");
-        jMenu4.add(jMenuItem7);
+        menuBackup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        menuBackup.setText("Backup de Tabela");
+        menuBackup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBackupActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuBackup);
+
+        menuCadCategoria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        menuCadCategoria.setText("Cadastro de Categorias");
+        menuCadCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCadCategoriaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuCadCategoria);
         jMenu4.add(jSeparator4);
 
-        jMenuItem4.setText("Sair");
-        jMenu4.add(jMenuItem4);
+        menuSair.setText("Sair");
+        menuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuSairActionPerformed(evt);
+            }
+        });
+        jMenu4.add(menuSair);
 
         jMenuBar1.add(jMenu4);
 
@@ -1258,43 +1259,19 @@ public class visao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void TextFieldPrecoUnitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldPrecoUnitarioActionPerformed
-
-        this.LogicaSomas();
-        atualizaResultados();
-        TextFieldImpostoFederal.requestFocus();
-        TextFieldImpostoFederal.selectAll();
-
-    }//GEN-LAST:event_TextFieldPrecoUnitarioActionPerformed
-
-    // num1 = PrecoUnitario, num2 = ImpostoEstadual, num3 = IPI, num4 = Frete, num5= GanhoLivre, num6 = ImpostoFederal;
-    private void TextFieldImpostoEstadualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldImpostoEstadualActionPerformed
-        this.LogicaSomas();       
-        atualizaResultados();
-        TextFieldIPI.requestFocus();
-         TextFieldIPI.selectAll();
-    }//GEN-LAST:event_TextFieldImpostoEstadualActionPerformed
-
-    private void TextFieldIPIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldIPIActionPerformed
-         this.LogicaSomas();  
-        atualizaResultados();
-        TextFieldICMS.requestFocus();
-        TextFieldICMS.selectAll();
-
-    }//GEN-LAST:event_TextFieldIPIActionPerformed
-
-    private void TextFieldFreteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldFreteActionPerformed
-         this.LogicaSomas();   
-        atualizaResultados();
-        TextFieldGanhoLivre.requestFocus();
-        TextFieldGanhoLivre.selectAll();
-    }//GEN-LAST:event_TextFieldFreteActionPerformed
-
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
+        if(CBCategoria.getItemCount()==0){
+            JOptionPane.showMessageDialog(null,"Categoria não informada. Por favor, cadastre uma nova categoria", "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
+            jTabbedPane1.setSelectedIndex(3);
+            campoCadCategoria.grabFocus();
+            precificacaoPendente=true;
+            return;
+        }
+        
         conexao.connection().conecta();
         
                        
-        TextFieldCB.setText(CBCategoria.getSelectedItem().toString());
+        //TextFieldCB.setText(CBCategoria.getSelectedItem().toString());
         String Descricao = this.TextFieldMaterial.getText().replace(",", ".");
         String Preco = this.TextFieldPrecoUnitario.getText().replace(",", ".");
         String IPI = this.TextFieldResultadoIPI.getText().replace(",", ".");
@@ -1305,7 +1282,7 @@ public class visao extends javax.swing.JFrame {
         String PrecoVenda = this.TextFieldResultadoPrecoVenda.getText().replace(",", ".");
         String ImpostoFederal = this.TextFieldResultadoIF.getText().replace(",", ".");
         String ImpostoEstadual = this.TextFieldResultadoIE.getText().replace(",", ".");
-        String Categoria = this.TextFieldCB.getText().replace(",", ".");
+        String Categoria = this.CBCategoria.getSelectedItem().toString();
         String comando = "insert into producao ( Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda,Categoria) "
                 + "values " + "('" + Descricao + "','" + Preco + "','" + ImpostoFederal + "','" + ImpostoEstadual + "', '" + IPI + "', '" + ICMS + "', '" + Frete + "', '" + GanhoLivre + "', '" + CustosGerais + "', '" + PrecoVenda + "', '" + Categoria + "')";
 
@@ -1336,19 +1313,11 @@ public class visao extends javax.swing.JFrame {
 
         CBCategoria.grabFocus();
         TextFieldMaterial.selectAll();//foca o campo preco unitario
-
+        
         conexao.connection().desconecta();
-
+        
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
-
-    private void TextFieldGanhoLivreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldGanhoLivreActionPerformed
-         this.LogicaSomas();   
-        atualizaResultados();
-        jButtonGravar.grabFocus();
-        jButtonGravar.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), evt);
-        jButtonGravar.getActionMap().put("DoClick", null);
-    }//GEN-LAST:event_TextFieldGanhoLivreActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
         linhaSelecionada = this.jTable1.getSelectedRow();
@@ -1372,31 +1341,9 @@ public class visao extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonAlterarActionPerformed
 
-    private void TextFieldMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldMaterialActionPerformed
-         this.LogicaSomas();
-         TextFieldPrecoUnitario.requestFocus();
-         TextFieldPrecoUnitario.selectAll();
-    }//GEN-LAST:event_TextFieldMaterialActionPerformed
-
-    private void TextFieldImpostoFederalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldImpostoFederalActionPerformed
-        this.LogicaSomas();
-        atualizaResultados();
-        TextFieldImpostoEstadual.requestFocus();
-        TextFieldImpostoEstadual.selectAll();//apertando enter, transfere foco p/proximo campo
-    }//GEN-LAST:event_TextFieldImpostoFederalActionPerformed
-
         private void botaoCriarCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarCopiaActionPerformed
             new BackupRestauracao().fazerBackup();
     }//GEN-LAST:event_botaoCriarCopiaActionPerformed
-
-    private void TextFieldICMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldICMSActionPerformed
-         this.LogicaSomas();   
-        atualizaResultados();
-        TextFieldFrete.requestFocus();
-        TextFieldFrete.selectAll();//apertando enter, transfere foco p/proximo campo
-
-
-    }//GEN-LAST:event_TextFieldICMSActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
@@ -1420,21 +1367,14 @@ public class visao extends javax.swing.JFrame {
         botaoPesquisarActionPerformed(evt);
     }//GEN-LAST:event_campoPesquisarActionPerformed
 
-    private void CBCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCategoriaActionPerformed
-        TextFieldCB.setText(CBCategoria.getSelectedItem().toString());
-        TextFieldMaterial.requestFocus();
-         TextFieldMaterial.selectAll();
-         
-    }//GEN-LAST:event_CBCategoriaActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botaoCadCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadCategoriaActionPerformed
        conexao.connection().conecta();
         
                        
         //TextFieldCB.setText(CBCategoria.getSelectedItem().toString());
        
         
-        String Categoria = this.TextFieldCadastro.getText().replace(",", ".");
+        String Categoria = this.campoCadCategoria.getText().replace(",", ".");
         String comando = "insert into categoria ( CadastroCategoria) "
                 + "values " + "('" + Categoria + "')";
 
@@ -1448,11 +1388,15 @@ public class visao extends javax.swing.JFrame {
 
         conexao.connection().desconecta();
         
-        TextFieldCadastro.setText("");
-        TextFieldCadastro.grabFocus();
+        campoCadCategoria.setText("");
+        campoCadCategoria.grabFocus();
 
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+        if(precificacaoPendente){
+            jTabbedPane1.setSelectedIndex(0);
+            precificacaoPendente=false;
+        }
+    }//GEN-LAST:event_botaoCadCategoriaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int linhaSelecionada = this.jTable2.getSelectedRow();
@@ -1461,14 +1405,109 @@ public class visao extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void menuPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisaActionPerformed
+        jTabbedPane1.setSelectedIndex(1);
+    }//GEN-LAST:event_menuPesquisaActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    private void menuBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBackupActionPerformed
+        jTabbedPane1.setSelectedIndex(2);
+    }//GEN-LAST:event_menuBackupActionPerformed
 
+    private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_menuSairActionPerformed
+
+    private void menuPrecificacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPrecificacaoActionPerformed
+        jTabbedPane1.setSelectedIndex(0);
+    }//GEN-LAST:event_menuPrecificacaoActionPerformed
+
+    private void menuCadCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadCategoriaActionPerformed
+        jTabbedPane1.setSelectedIndex(3);
+    }//GEN-LAST:event_menuCadCategoriaActionPerformed
+
+    private void CBCategoriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CBCategoriaKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            TextFieldMaterial.requestFocus();
+            TextFieldMaterial.selectAll();
+        }
+    }//GEN-LAST:event_CBCategoriaKeyPressed
+
+    private void TextFieldMaterialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldMaterialKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+             this.LogicaSomas();
+             TextFieldPrecoUnitario.requestFocus();
+            TextFieldPrecoUnitario.selectAll();
+         }
+    }//GEN-LAST:event_TextFieldMaterialKeyPressed
+
+    private void TextFieldPrecoUnitarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldPrecoUnitarioKeyPressed
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                 this.LogicaSomas();
+            atualizaResultados();
+            TextFieldImpostoFederal.requestFocus();
+            TextFieldImpostoFederal.selectAll();
+             }        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldPrecoUnitarioKeyPressed
+
+    private void TextFieldImpostoFederalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldImpostoFederalKeyPressed
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+                 this.LogicaSomas();
+            atualizaResultados();
+            TextFieldImpostoEstadual.requestFocus();
+            TextFieldImpostoEstadual.selectAll();}      // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldImpostoFederalKeyPressed
+
+    private void TextFieldImpostoEstadualKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldImpostoEstadualKeyPressed
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        this.LogicaSomas();       
+        atualizaResultados();
+        TextFieldIPI.requestFocus();
+        TextFieldIPI.selectAll();
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldImpostoEstadualKeyPressed
+
+    private void TextFieldIPIKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldIPIKeyPressed
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        this.LogicaSomas();  
+        atualizaResultados();
+        TextFieldICMS.requestFocus();
+        TextFieldICMS.selectAll();
+    }         // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldIPIKeyPressed
+
+    private void TextFieldICMSKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldICMSKeyPressed
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        this.LogicaSomas();   
+        atualizaResultados();
+        TextFieldFrete.requestFocus();
+        TextFieldFrete.selectAll();
+    }         // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldICMSKeyPressed
+
+    private void TextFieldFreteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldFreteKeyPressed
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        this.LogicaSomas();   
+        atualizaResultados();
+        TextFieldGanhoLivre.requestFocus();
+        TextFieldGanhoLivre.selectAll();
+    }           // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldFreteKeyPressed
+
+    private void TextFieldGanhoLivreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldGanhoLivreKeyPressed
+    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        this.LogicaSomas();   
+        atualizaResultados();
+        jButtonGravar.grabFocus();
+        jButtonGravar.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), evt);
+        jButtonGravar.getActionMap().put("DoClick", null);
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldGanhoLivreKeyPressed
+
+    private void campoCadCategoriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoCadCategoriaKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            botaoCadCategoria.doClick();
+        }
+    }//GEN-LAST:event_campoCadCategoriaKeyPressed
     /**
      * @param args the command line arguments
      */
@@ -1506,8 +1545,6 @@ public class visao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox CBCategoria;
-    private javax.swing.JFormattedTextField TextFieldCB;
-    private javax.swing.JTextField TextFieldCadastro;
     private javax.swing.JFormattedTextField TextFieldFrete;
     private javax.swing.JFormattedTextField TextFieldGanhoLivre;
     private javax.swing.JFormattedTextField TextFieldICMS;
@@ -1526,12 +1563,12 @@ public class visao extends javax.swing.JFrame {
     private javax.swing.JTextField TextFieldResultadoMaterial;
     private javax.swing.JFormattedTextField TextFieldResultadoPrecoProduto;
     private javax.swing.JFormattedTextField TextFieldResultadoPrecoVenda;
-    private javax.persistence.EntityManager armazenamentoPUEntityManager;
+    private javax.swing.JButton botaoCadCategoria;
     private javax.swing.JButton botaoCriarCopia;
     private javax.swing.JButton botaoPesquisar;
+    private javax.swing.JTextField campoCadCategoria;
     private javax.swing.JTextField campoPesquisar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonGravar;
@@ -1565,7 +1602,6 @@ public class visao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4Frete;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel5CustosGerais;
-    private javax.swing.JLabel jLabel5CustosGerais2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel6GanhoLivre;
     private javax.swing.JLabel jLabel7;
@@ -1577,12 +1613,7 @@ public class visao extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1599,7 +1630,10 @@ public class visao extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private java.util.List<distoleos.Producao> producaoList;
-    private javax.persistence.Query producaoQuery;
+    private javax.swing.JMenuItem menuBackup;
+    private javax.swing.JMenuItem menuCadCategoria;
+    private javax.swing.JMenuItem menuPesquisa;
+    private javax.swing.JMenuItem menuPrecificacao;
+    private javax.swing.JMenuItem menuSair;
     // End of variables declaration//GEN-END:variables
 }

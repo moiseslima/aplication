@@ -102,6 +102,7 @@ public class JanelaRemover2 extends javax.swing.JFrame {
         conexao.connection().desconecta();
 
         DistOleos.getSharedApplication().carregarTabela2();
+        DistOleos.getSharedApplication().experiencia();
         dispose();
         //System.exit(0); 
 
