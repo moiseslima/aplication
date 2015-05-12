@@ -1394,6 +1394,7 @@ public class visao extends javax.swing.JFrame {
 
         if(precificacaoPendente){
             jTabbedPane1.setSelectedIndex(0);
+            jButtonGravar.grabFocus();
             precificacaoPendente=false;
         }
     }//GEN-LAST:event_botaoCadCategoriaActionPerformed
