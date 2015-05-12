@@ -6,6 +6,7 @@
 package distoleos;
 
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -25,14 +26,17 @@ public class visao extends javax.swing.JFrame {
 
     double Custos, Soma, PrecoUnitario, ImpostoFederal, ImpostoEstadual, IPI, ICMS, GanhoLivre, CustosGerais, Frete, PrecoVenda;
     String Material;
-     String codigo;
+    String codigo;
     int linhaSelecionada;
-    boolean precificacaoPendente;
+    boolean precificacaoPendente,camposVazios, camposInvalidos;
+    boolean campoVazio[] = new boolean[8];
+    boolean campoInvalido[] = new boolean[8];
     /**
      * Creates new form visao
      */
     public visao() {
         initComponents();
+         
         this.codigo = codigo;
         jButtonGravar.addKeyListener(new KeyAdapter(){
           public void keyPressed(KeyEvent e) {
@@ -103,6 +107,7 @@ public class visao extends javax.swing.JFrame {
 	TextFieldResultadoGanhoLivre.grabFocus();
         TextFieldResultadoCustosGerais.grabFocus();
 	TextFieldResultadoPrecoVenda.grabFocus();
+        TextFieldMaterial.grabFocus();
     }
     
     public void experiencia(){
@@ -234,6 +239,9 @@ public class visao extends javax.swing.JFrame {
     }
     
     public void LogicaSomas(){
+        if(!validadorSoNumeros()){
+            return;
+        }
         
          if (TextFieldMaterial.getText().isEmpty()) {
             TextFieldMaterial.setText("0");
@@ -704,7 +712,7 @@ public class visao extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 44, Short.MAX_VALUE)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -716,49 +724,44 @@ public class visao extends javax.swing.JFrame {
                                         .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(26, 26, 26)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGap(576, 576, 576)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(jLabel12)
-                                                    .addComponent(jLabel13)
-                                                    .addComponent(jLabel14)))
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(TextFieldImpostoEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(TextFieldImpostoEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                .addComponent(jLabel1PrecoUnitario)
-                                                                .addComponent(jLabel10)
-                                                                .addComponent(jLabel1PrecoUnitario1)
-                                                                .addComponent(jLabel1)
-                                                                .addComponent(jLabel2)
-                                                                .addComponent(jLabel3)
-                                                                .addComponent(jLabel4)
-                                                                .addComponent(jLabel5)
-                                                                .addComponent(jLabel9))
-                                                            .addGap(28, 28, 28)
-                                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                                .addComponent(CBCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                                    .addComponent(jLabel11)
-                                                                    .addGap(9, 9, 9)
-                                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(TextFieldMaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                                                        .addComponent(TextFieldPrecoUnitario)
-                                                                        .addComponent(TextFieldImpostoFederal))))))
-                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(TextFieldICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(TextFieldIPI, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(TextFieldFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(TextFieldGanhoLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel6)
-                                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
-                                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                                                        .addComponent(jLabel1PrecoUnitario)
+                                                        .addComponent(jLabel10)
+                                                        .addComponent(jLabel1PrecoUnitario1)
+                                                        .addComponent(jLabel1)
+                                                        .addComponent(jLabel2)
+                                                        .addComponent(jLabel3)
+                                                        .addComponent(jLabel4)
+                                                        .addComponent(jLabel5)
+                                                        .addComponent(jLabel9))
+                                                    .addGap(28, 28, 28)
+                                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(CBCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                            .addComponent(jLabel11)
+                                                            .addGap(9, 9, 9)
+                                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(TextFieldMaterial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                                                .addComponent(TextFieldPrecoUnitario)
+                                                                .addComponent(TextFieldImpostoFederal))))))
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(TextFieldICMS, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(TextFieldIPI, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(TextFieldFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(TextFieldGanhoLivre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel6)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel12)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel14))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1258,8 +1261,65 @@ public class visao extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
+    public boolean validadorSoNumeros(){
+        if(!TextFieldPrecoUnitario.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[1]=true; camposInvalidos=true;TextFieldPrecoUnitario.setForeground(Color.RED);}else TextFieldPrecoUnitario.setForeground(Color.BLACK);
+        if(!TextFieldImpostoFederal.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[2]=true; camposInvalidos=true;TextFieldImpostoFederal.setForeground(Color.RED);}else TextFieldImpostoFederal.setForeground(Color.BLACK);
+        if(!TextFieldImpostoEstadual.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[3]=true; camposInvalidos=true;TextFieldImpostoEstadual.setForeground(Color.RED);}else TextFieldImpostoEstadual.setForeground(Color.BLACK);
+        if(!TextFieldIPI.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[4]=true; camposInvalidos=true;TextFieldIPI.setForeground(Color.RED);}else TextFieldIPI.setForeground(Color.BLACK);
+        if(!TextFieldICMS.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[5]=true; camposInvalidos=true;TextFieldICMS.setForeground(Color.RED);}else TextFieldICMS.setForeground(Color.BLACK);
+        if(!TextFieldFrete.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[6]=true; camposInvalidos=true;TextFieldFrete.setForeground(Color.RED);}else TextFieldFrete.setForeground(Color.BLACK);
+        if(!TextFieldGanhoLivre.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[7]=true; camposInvalidos=true;TextFieldGanhoLivre.setForeground(Color.RED);}else TextFieldGanhoLivre.setForeground(Color.BLACK);
+        
+        if(camposInvalidos){
+            JOptionPane.showMessageDialog(null,"Por favor, insira apenas números nos campos de porcentagem ou reais");
+            if(campoInvalido[1]){
+                    
+                    TextFieldPrecoUnitario.grabFocus();TextFieldPrecoUnitario.selectAll();
+                }else{
+                    if(campoInvalido[2]){
+                        TextFieldImpostoFederal.grabFocus();TextFieldImpostoFederal.selectAll();
+                        
+                    }else{
+                        if(campoInvalido[3]){
+                            
+                            TextFieldImpostoEstadual.grabFocus();TextFieldImpostoEstadual.selectAll();
+                        }else{
+                            if(campoInvalido[4]){
+                                
+                                TextFieldIPI.grabFocus();TextFieldIPI.selectAll();
+                            }else{
+                                if(campoInvalido[5]){
+                                    
+                                    TextFieldICMS.grabFocus();TextFieldICMS.selectAll();
+                                }else{
+                                    if(campoInvalido[6]){
+                                        
+                                        TextFieldFrete.grabFocus();TextFieldFrete.selectAll();
+                                    }else{
+                                        if(campoInvalido[7]){
+                                            
+                                            TextFieldGanhoLivre.grabFocus();TextFieldGanhoLivre.selectAll();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            
+            
+            for(int i=1;i<=7;i++){
+                    campoInvalido[i] = false;
+                }
+            camposInvalidos=false;
+            return false;
+         
+        }
+        return true;
+    }
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
+        
+        
         if(CBCategoria.getItemCount()==0){
             JOptionPane.showMessageDialog(null,"Categoria não informada. Por favor, cadastre uma nova categoria", "ATENÇÃO", JOptionPane.ERROR_MESSAGE);
             jTabbedPane1.setSelectedIndex(3);
@@ -1268,6 +1328,75 @@ public class visao extends javax.swing.JFrame {
             return;
         }
         
+        if(TextFieldPrecoUnitario.getText().isEmpty()){campoVazio[1]=true; camposVazios=true;}
+        if(TextFieldImpostoFederal.getText().isEmpty()){campoVazio[2]=true; camposVazios=true;}
+        if(TextFieldImpostoEstadual.getText().isEmpty()){campoVazio[3]=true; camposVazios=true;}
+        if(TextFieldIPI.getText().isEmpty()){campoVazio[4]=true; camposVazios=true;}
+        if(TextFieldICMS.getText().isEmpty()){campoVazio[5]=true; camposVazios=true;}
+        if(TextFieldFrete.getText().isEmpty()){campoVazio[6]=true; camposVazios=true;}
+        if(TextFieldGanhoLivre.getText().isEmpty()){campoVazio[7]=true; camposVazios=true;}
+        
+        if(TextFieldMaterial.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Opa! Faltou o Nome do Produto/Material\nPor favor, informe um nome para este produto");
+            TextFieldMaterial.grabFocus();
+            
+            return;
+        }
+
+        if(camposVazios){
+            if(JOptionPane.showConfirmDialog(this, "Opa! Encontrei campos vazios.\nDeseja preencher automaticamente os campos vazios com 0%?\nPara corrigir manualmente, pressione NÃO","Campos vazios encontrados",JOptionPane.YES_NO_OPTION) == 0){
+                if(TextFieldMaterial.getText().isEmpty()){TextFieldMaterial.setText("0");campoVazio[1]=false; camposVazios=false;}
+                if(TextFieldImpostoFederal.getText().isEmpty()){TextFieldImpostoFederal.setText("0");campoVazio[2]=false; camposVazios=false;}
+                if(TextFieldImpostoEstadual.getText().isEmpty()){TextFieldImpostoEstadual.setText("0");campoVazio[3]=false; camposVazios=false;}
+                if(TextFieldIPI.getText().isEmpty()){TextFieldIPI.setText("0");campoVazio[4]=false; camposVazios=false;}
+                if(TextFieldICMS.getText().isEmpty()){TextFieldICMS.setText("0");campoVazio[5]=false; camposVazios=false;}
+                if(TextFieldFrete.getText().isEmpty()){TextFieldFrete.setText("0");campoVazio[6]=false; camposVazios=false;}
+                if(TextFieldGanhoLivre.getText().isEmpty()){TextFieldGanhoLivre.setText("0");campoVazio[7]=false; camposVazios=false;}
+                LogicaSomas();
+                atualizaResultados();
+                return;
+            }else{
+                if(campoVazio[1]){
+                    TextFieldPrecoUnitario.grabFocus();
+                }else{
+                    if(campoVazio[2]){
+                        TextFieldImpostoFederal.grabFocus();
+                    }else{
+                        if(campoVazio[3]){
+                            TextFieldImpostoEstadual.grabFocus();
+                        }else{
+                            if(campoVazio[4]){
+                                TextFieldIPI.grabFocus();
+                            }else{
+                                if(campoVazio[5]){
+                                    TextFieldICMS.grabFocus();
+                                }else{
+                                    if(campoVazio[6]){
+                                        TextFieldFrete.grabFocus();
+                                    }else{
+                                        if(campoVazio[7]){
+                                            TextFieldGanhoLivre.grabFocus();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                for(int i=1;i<=7;i++){
+                    campoVazio[i] = false;
+                }
+                camposVazios=false;
+                return;
+            }
+        }
+
+        if(!validadorSoNumeros()){
+            return;
+        }
+        
+        LogicaSomas();
+        atualizaResultados();
         conexao.connection().conecta();
         
                        
@@ -1433,23 +1562,6 @@ public class visao extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CBCategoriaKeyPressed
 
-    private void TextFieldMaterialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldMaterialKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-             this.LogicaSomas();
-             TextFieldPrecoUnitario.requestFocus();
-            TextFieldPrecoUnitario.selectAll();
-         }
-    }//GEN-LAST:event_TextFieldMaterialKeyPressed
-
-    private void TextFieldPrecoUnitarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldPrecoUnitarioKeyPressed
-    if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                 this.LogicaSomas();
-            atualizaResultados();
-            TextFieldImpostoFederal.requestFocus();
-            TextFieldImpostoFederal.selectAll();
-             }        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldPrecoUnitarioKeyPressed
-
     private void TextFieldImpostoFederalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldImpostoFederalKeyPressed
     if(evt.getKeyCode()==KeyEvent.VK_ENTER){
                  this.LogicaSomas();
@@ -1509,6 +1621,23 @@ public class visao extends javax.swing.JFrame {
             botaoCadCategoria.doClick();
         }
     }//GEN-LAST:event_campoCadCategoriaKeyPressed
+
+    private void TextFieldPrecoUnitarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldPrecoUnitarioKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            this.LogicaSomas();
+            atualizaResultados();
+            TextFieldImpostoFederal.requestFocus();
+            TextFieldImpostoFederal.selectAll();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldPrecoUnitarioKeyPressed
+
+    private void TextFieldMaterialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextFieldMaterialKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            this.LogicaSomas();
+            TextFieldPrecoUnitario.requestFocus();
+            TextFieldPrecoUnitario.selectAll();
+        }
+    }//GEN-LAST:event_TextFieldMaterialKeyPressed
     /**
      * @param args the command line arguments
      */
