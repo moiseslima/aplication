@@ -1346,7 +1346,7 @@ public class visao extends javax.swing.JFrame {
 
         if(camposVazios){
             if(JOptionPane.showConfirmDialog(this, "Opa! Encontrei campos vazios.\nDeseja preencher automaticamente os campos vazios com 0%?\nPara corrigir manualmente, pressione NÃO","Campos vazios encontrados",JOptionPane.YES_NO_OPTION) == 0){
-                if(TextFieldMaterial.getText().isEmpty()){TextFieldMaterial.setText("0");campoVazio[1]=false; camposVazios=false;}
+                if(TextFieldPrecoUnitario.getText().isEmpty()){TextFieldPrecoUnitario.setText("0");campoVazio[1]=false; camposVazios=false;}
                 if(TextFieldImpostoFederal.getText().isEmpty()){TextFieldImpostoFederal.setText("0");campoVazio[2]=false; camposVazios=false;}
                 if(TextFieldImpostoEstadual.getText().isEmpty()){TextFieldImpostoEstadual.setText("0");campoVazio[3]=false; camposVazios=false;}
                 if(TextFieldIPI.getText().isEmpty()){TextFieldIPI.setText("0");campoVazio[4]=false; camposVazios=false;}
