@@ -713,7 +713,7 @@ public class visao extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 54, Short.MAX_VALUE)
+                                .addGap(0, 44, Short.MAX_VALUE)
                                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -763,7 +763,7 @@ public class visao extends javax.swing.JFrame {
                                             .addComponent(jLabel12)
                                             .addComponent(jLabel13)
                                             .addComponent(jLabel14))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)))
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -998,7 +998,7 @@ public class visao extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1270, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(campoPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -1139,7 +1139,7 @@ public class visao extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1030, Short.MAX_VALUE))
+                .addContainerGap(1020, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1156,7 +1156,8 @@ public class visao extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1275, Short.MAX_VALUE)
+                .addGap(7, 7, 7)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1265, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -1440,6 +1441,10 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        if(jTable1.getSelectedRow()== -1){
+          JOptionPane.showMessageDialog(null , "Selecione a linha que deseja alterar");
+          return;
+      }
         linhaSelecionada = this.jTable1.getSelectedRow();
         // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda)    
 
@@ -1474,7 +1479,11 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       int linhaSelecionada = this.jTable1.getSelectedRow();
+      if(jTable1.getSelectedRow()== -1){
+          JOptionPane.showMessageDialog(null , "Selecione a linha que deseja remover");
+          return;
+      }
+        int linhaSelecionada = this.jTable1.getSelectedRow();
        String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
         new JanelaRemover(codigo).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1520,6 +1529,10 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCadCategoriaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(jTable2.getSelectedRow()== -1){
+          JOptionPane.showMessageDialog(null , "Selecione a linha que deseja remover");
+          return;
+      }
         int linhaSelecionada = this.jTable2.getSelectedRow();
        String codigo = this.jTable2.getValueAt(linhaSelecionada, 0).toString();
         new JanelaRemover2(codigo).setVisible(true);
