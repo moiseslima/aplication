@@ -1474,7 +1474,7 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       int linhaSelecionada = this.jTable1.getSelectedRow();
+        int linhaSelecionada = this.jTable1.getSelectedRow();
        String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
         new JanelaRemover(codigo).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed

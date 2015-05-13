@@ -5,6 +5,7 @@
  */
 package distoleos;
 
+import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -18,7 +19,10 @@ public class AlterarTabela extends javax.swing.JFrame {
         String codigo, cat;
         float preco,impostoFederal,impostoEstadual,ipi,icms,frete,ganhoLivre,custosGerais,precoVenda;
         float impostoFederalPorcentagem,impostoEstadualPorcentagem,ipiPorcentagem,icmsPorcentagem,fretePorcentagem,ganhoLivrePorcentagem;
-    /**
+        boolean camposVazios, camposInvalidos;
+    boolean campoVazio[] = new boolean[8];
+    boolean campoInvalido[] = new boolean[8];
+        /**
      * Creates new form AlterarTabela
      */
     
@@ -105,6 +109,110 @@ public class AlterarTabela extends javax.swing.JFrame {
         campoCustosGerais.setText(String.valueOf(Custos));
         campoPrecoVenda.setText(String.valueOf(PrecoVenda));
     }
+    public boolean validadorSoNumeros(){
+        if(!campoPrecoUnitario.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[1]=true; camposInvalidos=true;campoPrecoUnitario.setForeground(Color.RED);}else campoPrecoUnitario.setForeground(Color.BLACK);
+        if(!campoImpostoFederal.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[2]=true; camposInvalidos=true;campoImpostoFederal.setForeground(Color.RED);}else campoImpostoFederal.setForeground(Color.BLACK);
+        if(!campoImpostoEstadual.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[3]=true; camposInvalidos=true;campoImpostoEstadual.setForeground(Color.RED);}else campoImpostoEstadual.setForeground(Color.BLACK);
+        if(!campoIPI.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[4]=true; camposInvalidos=true;campoIPI.setForeground(Color.RED);}else campoIPI.setForeground(Color.BLACK);
+        if(!campoICMS.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[5]=true; camposInvalidos=true;campoICMS.setForeground(Color.RED);}else campoICMS.setForeground(Color.BLACK);
+        if(!campoFrete.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[6]=true; camposInvalidos=true;campoFrete.setForeground(Color.RED);}else campoFrete.setForeground(Color.BLACK);
+        if(!campoGanhoLivre.getText().replace(".", "").replace(",", "").matches("\\d+")){campoInvalido[7]=true; camposInvalidos=true;campoGanhoLivre.setForeground(Color.RED);}else campoGanhoLivre.setForeground(Color.BLACK);
+        
+        if(camposInvalidos){
+            JOptionPane.showMessageDialog(null,"Por favor, insira apenas números nos campos de porcentagem ou reais");
+            if(campoInvalido[1]){
+                    
+                    campoPrecoUnitario.grabFocus();campoPrecoUnitario.selectAll();
+                }else{
+                    if(campoInvalido[2]){
+                        campoImpostoFederal.grabFocus();campoImpostoFederal.selectAll();
+                        
+                    }else{
+                        if(campoInvalido[3]){
+                            
+                            campoImpostoEstadual.grabFocus();campoImpostoEstadual.selectAll();
+                        }else{
+                            if(campoInvalido[4]){
+                                
+                                campoIPI.grabFocus();campoIPI.selectAll();
+                            }else{
+                                if(campoInvalido[5]){
+                                    
+                                    campoICMS.grabFocus();campoICMS.selectAll();
+                                }else{
+                                    if(campoInvalido[6]){
+                                        
+                                        campoFrete.grabFocus();campoFrete.selectAll();
+                                    }else{
+                                        if(campoInvalido[7]){
+                                            
+                                            campoGanhoLivre.grabFocus();campoGanhoLivre.selectAll();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            
+            
+            for(int i=1;i<=7;i++){
+                    campoInvalido[i] = false;
+                }
+            camposInvalidos=false;
+            return false;
+         
+        }
+        return true;
+    }
+    public boolean existeCampoVazio(){
+        if(campoPrecoUnitario.getText().isEmpty()){campoVazio[1]=true; camposVazios=true;}
+        if(campoImpostoFederal.getText().isEmpty()){campoVazio[2]=true; camposVazios=true;}
+        if(campoImpostoEstadual.getText().isEmpty()){campoVazio[3]=true; camposVazios=true;}
+        if(campoIPI.getText().isEmpty()){campoVazio[4]=true; camposVazios=true;}
+        if(campoICMS.getText().isEmpty()){campoVazio[5]=true; camposVazios=true;}
+        if(campoFrete.getText().isEmpty()){campoVazio[6]=true; camposVazios=true;}
+        if(campoGanhoLivre.getText().isEmpty()){campoVazio[7]=true; camposVazios=true;}
+        
+        if(campoDescricao.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Opa! Faltou o Nome do Produto/Material\nPor favor, informe um nome para este produto");
+            campoDescricao.grabFocus();
+            return true;
+        }
+        if(camposVazios){
+            if(JOptionPane.showConfirmDialog(this, "Opa! Encontrei campos vazios.\nDeseja preencher automaticamente os campos vazios com 0%?\nPara corrigir manualmente, pressione NÃO","Campos vazios encontrados",JOptionPane.YES_NO_OPTION) == 0){
+                if (campoPrecoUnitario.getText().isEmpty()) {
+                    campoPrecoUnitario.setText("0");
+                }
+                if (campoImpostoFederal.getText().isEmpty()) {
+                    campoImpostoFederal.setText("0");
+                }
+                if (campoImpostoEstadual.getText().isEmpty()) {
+                    campoImpostoEstadual.setText("0");
+                }
+                if (campoIPI.getText().isEmpty()) {
+                    campoIPI.setText("0");
+                }
+                if (campoICMS.getText().isEmpty()) {
+                    campoICMS.setText("0");
+                }
+
+                if (campoFrete.getText().isEmpty()) {
+                    campoFrete.setText("0");
+                }
+                if (campoGanhoLivre.getText().isEmpty()) {
+                    campoGanhoLivre.setText("0");
+                }
+                
+            }else return true;
+            for(int i=1;i<=7;i++){
+                campoVazio[i] = false;
+            }
+            camposVazios=false;
+        }
+        return false;
+    }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -436,6 +544,10 @@ public class AlterarTabela extends javax.swing.JFrame {
 
     private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
       
+        
+        if(existeCampoVazio())return;
+        if(!validadorSoNumeros())return;
+        
         recalcularValores();
         conexao.connection().conecta();
         
