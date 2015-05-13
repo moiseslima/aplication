@@ -404,8 +404,6 @@ public class visao extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         botaoPesquisar = new javax.swing.JButton();
         campoPesquisar = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        botaoCriarCopia = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         campoCadCategoria = new javax.swing.JTextField();
@@ -415,6 +413,8 @@ public class visao extends javax.swing.JFrame {
         botaoCadCategoria = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jPanel4 = new javax.swing.JPanel();
+        botaoCriarCopia = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         menuPrecificacao = new javax.swing.JMenuItem();
@@ -1025,33 +1025,6 @@ public class visao extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Pesquisar", jPanel3);
 
-        botaoCriarCopia.setForeground(new java.awt.Color(66, 107, 215));
-        botaoCriarCopia.setText("CRIAR CÓPIA DE SEGURANÇA");
-        botaoCriarCopia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCriarCopiaActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1020, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(638, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Fazer Backup", jPanel4);
-
         jLabel15.setBackground(new java.awt.Color(255, 204, 204));
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 204, 51));
@@ -1151,12 +1124,39 @@ public class visao extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Cadastro de Categoria", jPanel5);
 
+        botaoCriarCopia.setForeground(new java.awt.Color(66, 107, 215));
+        botaoCriarCopia.setText("CRIAR CÓPIA DE SEGURANÇA");
+        botaoCriarCopia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCriarCopiaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1020, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botaoCriarCopia, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(638, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Fazer Backup", jPanel4);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(7, 7, 7)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1265, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1204,6 +1204,7 @@ public class visao extends javax.swing.JFrame {
         jMenu4.add(menuCadCategoria);
         jMenu4.add(jSeparator4);
 
+        menuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
         menuSair.setText("Sair");
         menuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1216,7 +1217,7 @@ public class visao extends javax.swing.JFrame {
 
         jMenu3.setText("Relatórios");
 
-        menuGerarRelatorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        menuGerarRelatorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
         menuGerarRelatorio.setText("Gerar Relatório");
         menuGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1440,6 +1441,10 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        if(jTable1.getSelectedRow()== -1){
+          JOptionPane.showMessageDialog(null , "Selecione a linha que deseja alterar");
+          return;
+      }
         linhaSelecionada = this.jTable1.getSelectedRow();
         // Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda)    
 
@@ -1474,6 +1479,10 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      if(jTable1.getSelectedRow()== -1){
+          JOptionPane.showMessageDialog(null , "Selecione a linha que deseja remover");
+          return;
+      }
         int linhaSelecionada = this.jTable1.getSelectedRow();
        String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
         new JanelaRemover(codigo).setVisible(true);
@@ -1520,6 +1529,10 @@ public class visao extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoCadCategoriaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(jTable2.getSelectedRow()== -1){
+          JOptionPane.showMessageDialog(null , "Selecione a linha que deseja remover");
+          return;
+      }
         int linhaSelecionada = this.jTable2.getSelectedRow();
        String codigo = this.jTable2.getValueAt(linhaSelecionada, 0).toString();
         new JanelaRemover2(codigo).setVisible(true);
