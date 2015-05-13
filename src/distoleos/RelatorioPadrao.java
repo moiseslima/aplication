@@ -103,6 +103,7 @@ public void populaCB(){
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void categoriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_categoriaKeyPressed
