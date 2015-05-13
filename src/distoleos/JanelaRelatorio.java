@@ -23,25 +23,14 @@ import util.conexao;
  *
  * @author Assis Andrade
  */
-public class JanelaPesquisar extends javax.swing.JFrame {
+public class JanelaRelatorio extends javax.swing.JFrame {
     String descricao, codigoSQL, codigoTabela;
     int linhaSelecionada;
     /**
      * Creates new form JanelaPesquisar
      */
-    public JanelaPesquisar(String descricaoInformada) {
+    public JanelaRelatorio(String descricaoInformada) {
         initComponents();
-        jTable1.addMouseListener(new MouseAdapter() {
-        public void mousePressed(MouseEvent me) {
-        JTable table =(JTable) me.getSource();
-        Point p = me.getPoint();
-        int row = table.rowAtPoint(p);
-        if (me.getClickCount() == 2) {
-            linhaSelecionada = row;
-            botaoAlterar.doClick();
-        }
-    }
-});
         descricao = descricaoInformada;
         preencheTabela();
     }
@@ -54,7 +43,7 @@ public class JanelaPesquisar extends javax.swing.JFrame {
         }
         conexao.connection().conecta();
         codigoSQL = "SELECT * from producao "
-                + "WHERE (Descricao) COLLATE UTF8_GENERAL_CI LIKE '%" +descricao+ "%'";
+                + "WHERE (Categoria) COLLATE UTF8_GENERAL_CI LIKE '%" +descricao+ "%'";
 
         Vector<Vector> dados = new Vector<>();
 
@@ -113,7 +102,6 @@ public class JanelaPesquisar extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         botaoFechar = new javax.swing.JButton();
-        botaoAlterar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -158,13 +146,6 @@ public class JanelaPesquisar extends javax.swing.JFrame {
             }
         });
 
-        botaoAlterar.setText("Alterar");
-        botaoAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAlterarActionPerformed(evt);
-            }
-        });
-
         jButton1.setText("Imprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,10 +163,9 @@ public class JanelaPesquisar extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botaoFechar)))
                 .addContainerGap())
@@ -195,10 +175,9 @@ public class JanelaPesquisar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoFechar)
-                    .addComponent(botaoAlterar)
                     .addComponent(jButton1))
                 .addContainerGap())
         );
@@ -211,26 +190,6 @@ public class JanelaPesquisar extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_botaoFecharActionPerformed
 
-    private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
-        linhaSelecionada = this.jTable1.getSelectedRow();
-         String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
-        String Descricao = this.jTable1.getValueAt(linhaSelecionada, 1).toString();
-        String Preco = this.jTable1.getValueAt(linhaSelecionada, 2).toString();
-        String ImpostoFederal = this.jTable1.getValueAt(linhaSelecionada, 3).toString();
-        String ImpostoEstadual = this.jTable1.getValueAt(linhaSelecionada, 4).toString();
-        String IPI = this.jTable1.getValueAt(linhaSelecionada, 5).toString();
-        String ICMS = this.jTable1.getValueAt(linhaSelecionada, 6).toString();
-        String Frete = this.jTable1.getValueAt(linhaSelecionada, 7).toString();
-        String GanhoLivre = this.jTable1.getValueAt(linhaSelecionada, 8).toString();
-        String CustosGerais = this.jTable1.getValueAt(linhaSelecionada, 9).toString();
-        String PrecoVenda = this.jTable1.getValueAt(linhaSelecionada, 10).toString();       
-        String Categoria = this.jTable1.getValueAt(linhaSelecionada, 11).toString();
-        
-        
-        new AlterarTabela(Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda, codigo, Categoria).setVisible(true);
-        preencheTabela();
-    }//GEN-LAST:event_botaoAlterarActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             PrintRequestAttributeSet set = new HashPrintRequestAttributeSet();
@@ -238,8 +197,9 @@ public class JanelaPesquisar extends javax.swing.JFrame {
             jTable1.print(JTable.PrintMode.FIT_WIDTH, null, null, true, set, true);
             //jTable1.print();
         } catch (PrinterException ex) {
-            Logger.getLogger(JanelaPesquisar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JanelaRelatorio.class.getName()).log(Level.SEVERE, null, ex);
         }
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -248,7 +208,6 @@ public class JanelaPesquisar extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoAlterar;
     private javax.swing.JButton botaoFechar;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;

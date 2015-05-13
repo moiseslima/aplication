@@ -424,6 +424,7 @@ public class visao extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         menuSair = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        menuGerarRelatorio = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -1214,6 +1215,16 @@ public class visao extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu3.setText("Relatórios");
+
+        menuGerarRelatorio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        menuGerarRelatorio.setText("Gerar Relatório");
+        menuGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuGerarRelatorioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuGerarRelatorio);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -1234,14 +1245,14 @@ public class visao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparCamposActionPerformed
-        TextFieldMaterial.setText("");
-        TextFieldPrecoUnitario.setText("");
-        TextFieldImpostoFederal.setText("");
-        TextFieldImpostoEstadual.setText("");
-        TextFieldIPI.setText("");
-        TextFieldICMS.setText("");
-        TextFieldFrete.setText("");
-        TextFieldGanhoLivre.setText("");
+        TextFieldMaterial.setText("0");
+        TextFieldPrecoUnitario.setText("0");
+        TextFieldImpostoFederal.setText("0");
+        TextFieldImpostoEstadual.setText("0");
+        TextFieldIPI.setText("0");
+        TextFieldICMS.setText("0");
+        TextFieldFrete.setText("0");
+        TextFieldGanhoLivre.setText("0");
 
         TextFieldResultadoMaterial.setText("");
         TextFieldResultadoIF.setText("");
@@ -1255,7 +1266,7 @@ public class visao extends javax.swing.JFrame {
         TextFieldResultadoPrecoProduto.setText("");
 
         CBCategoria.grabFocus();
-        TextFieldMaterial.selectAll();//foca o campo preco unitario
+        //TextFieldMaterial.selectAll();//foca o campo preco unitario
 
     }//GEN-LAST:event_jButtonLimparCamposActionPerformed
 
@@ -1421,32 +1432,11 @@ public class visao extends javax.swing.JFrame {
 
         this.carregarTabela();
         JOptionPane.showMessageDialog(null, "Dados inseridos com SUCESSO");
-        TextFieldMaterial.setText("");
-        TextFieldPrecoUnitario.setText("");
-        TextFieldImpostoFederal.setText("");
-        TextFieldImpostoEstadual.setText("");
-        TextFieldIPI.setText("");
-        TextFieldICMS.setText("");
-        TextFieldFrete.setText("");
-        TextFieldGanhoLivre.setText("");
-
-        TextFieldResultadoMaterial.setText("");
-        TextFieldResultadoIF.setText("");
-        TextFieldResultadoIE.setText("");
-        TextFieldResultadoIPI.setText("");
-        TextFieldResultadoICMS.setText("");
-        TextFieldResultadoFrete.setText("");
-        TextFieldResultadoCustosGerais.setText("");
-        TextFieldResultadoGanhoLivre.setText("");
-        TextFieldResultadoPrecoVenda.setText("");
-        TextFieldResultadoPrecoProduto.setText("");
-
-        CBCategoria.grabFocus();
-        TextFieldMaterial.selectAll();//foca o campo preco unitario
+        jButtonLimparCampos.doClick();
         
         conexao.connection().desconecta();
         
-
+        
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -1464,9 +1454,9 @@ public class visao extends javax.swing.JFrame {
         String CustosGerais = this.jTable1.getValueAt(linhaSelecionada, 9).toString();
         String PrecoVenda = this.jTable1.getValueAt(linhaSelecionada, 10).toString();
         String codigo = this.jTable1.getValueAt(linhaSelecionada, 0).toString();
-         String Categoria = this.jTable1.getValueAt(linhaSelecionada, 11).toString();
+        String Categoria = this.jTable1.getValueAt(linhaSelecionada, 11).toString();
         
-        new AlterarTabela(Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda, codigo).setVisible(true);
+        new AlterarTabela(Descricao, Preco, ImpostoFederal, ImpostoEstadual, IPI, ICMS, Frete, GanhoLivre, CustosGerais, PrecoVenda, codigo, Categoria).setVisible(true);
 
 
     }//GEN-LAST:event_jButtonAlterarActionPerformed
@@ -1639,6 +1629,10 @@ public class visao extends javax.swing.JFrame {
             TextFieldPrecoUnitario.selectAll();
         }
     }//GEN-LAST:event_TextFieldMaterialKeyPressed
+
+    private void menuGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGerarRelatorioActionPerformed
+        new RelatorioPadrao().setVisible(true);
+    }//GEN-LAST:event_menuGerarRelatorioActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1763,6 +1757,7 @@ public class visao extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JMenuItem menuBackup;
     private javax.swing.JMenuItem menuCadCategoria;
+    private javax.swing.JMenuItem menuGerarRelatorio;
     private javax.swing.JMenuItem menuPesquisa;
     private javax.swing.JMenuItem menuPrecificacao;
     private javax.swing.JMenuItem menuSair;
