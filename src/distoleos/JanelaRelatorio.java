@@ -43,7 +43,7 @@ public class JanelaRelatorio extends javax.swing.JFrame {
         }
         conexao.connection().conecta();
         codigoSQL = "SELECT * from producao "
-                + "WHERE (Categoria) COLLATE UTF8_GENERAL_CI LIKE '%" +descricao+ "%'";
+                + "WHERE (Categoria) = '" +descricao+ "'";
 
         Vector<Vector> dados = new Vector<>();
 
