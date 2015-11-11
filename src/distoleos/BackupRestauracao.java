@@ -24,7 +24,7 @@ public class BackupRestauracao {
             try {
                 Runtime.getRuntime().exec(com);
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "FALHA AO REALIZAR BACKUP. Contate (83)-9936-4007 e informe o"
+                JOptionPane.showMessageDialog(null, "FALHA AO REALIZAR BACKUP. Contate (83)-9988-1960 ou pelo email moisaport@hotmail.com e informe o"
                                             + "\nErro:" + ex.getMessage());
             }
             JOptionPane.showMessageDialog(null, "Backup realizado com SUCESSO");
